@@ -1,1 +1,1 @@
-# portage-patches
+# /etc/portage/patches
