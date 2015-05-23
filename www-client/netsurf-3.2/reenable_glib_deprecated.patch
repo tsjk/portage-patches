@@ -1,0 +1,11 @@
+diff -rupN a/gtk/Makefile.target b/gtk/Makefile.target
+--- a/gtk/Makefile.target	2014-04-25 18:19:59.000000000 -0400
++++ b/gtk/Makefile.target	2014-08-02 21:25:00.276081320 -0400
+@@ -34,7 +34,6 @@ $(eval $(call pkg_config_find_and_add_en
+ 
+ # GTK and GLIB flags to disable depricated usage
+ GTKDEPFLAGS := -DG_DISABLE_SINGLE_INCLUDES \
+-		-DG_DISABLE_DEPRECATED \
+ 	       	-DGTK_DISABLE_SINGLE_INCLUDES \
+ 	       	-DGTK_DISABLE_DEPRECATED \
+ 		-DGTK_MULTIHEAD_SAFE \

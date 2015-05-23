@@ -1,0 +1,33 @@
+--- arch/x86/kernel/cpu/mtrr/cleanup.c	2013-07-01 00:13:29.000000000 +0200
++++ arch/x86/kernel/cpu/mtrr/cleanup.c.patched	2013-08-25 11:06:32.740807063 +0200
+@@ -682,6 +682,7 @@
+ 	mtrr_type type;
+ 	int index_good;
+ 	int i;
++	unsigned long xi;
+ 
+ 	if (!is_cpu(INTEL) || enable_mtrr_cleanup < 1)
+ 		return 0;
+@@ -714,6 +715,22 @@
+ 	if (mtrr_tom2)
+ 		x_remove_size = (mtrr_tom2 >> PAGE_SHIFT) - x_remove_base;
+ 
++	/* Constrain a WB entry that maps entire phys addr space to max mem */
++	for (i = 0; i < num_var_ranges; i++) {
++		if (range_state[i].type == MTRR_TYPE_WRBACK &&
++			range_state[i].base_pfn == 0 &&
++			range_state[i].size_pfn > max_pfn) {
++				xi = rounddown_pow_of_two(max_pfn);
++				while (xi < max_pfn)
++					if ((max_pfn - xi) > (1 << (20 - PAGE_SHIFT)))
++						xi += rounddown_pow_of_two(max_pfn - xi);
++					else
++						xi += (1 << (20 - PAGE_SHIFT));
++				range_state[i].size_pfn = xi;
++				break;
++		}
++	}
++
+ 	/*
+ 	 * [0, 1M) should always be covered by var mtrr with WB
+ 	 * and fixed mtrrs should take effect before var mtrr for it:
