@@ -1,0 +1,11 @@
+--- liblxqt-9999/lxqtpower/lxqtpower.h.orig	2015-09-11 23:28:45.600645372 +0200
++++ liblxqt-9999/lxqtpower/lxqtpower.h	2015-09-11 23:30:57.566150385 +0200
+@@ -103,7 +103,7 @@
+ 
+ private:
+     QList<PowerProvider*> mProviders;
+-    LxQt::ScreenSaver mScreenSaver;
++    LXQt::ScreenSaver mScreenSaver;
+     QEventLoop mLoop;
+ };
+ 
