@@ -1,6 +1,14 @@
---- upower-0.99.4.20150716/src/linux/up-device-supply.c.orig	2015-09-11 20:24:00.811831388 +0200
-+++ upower-0.99.4.20150716/src/linux/up-device-supply.c	2015-09-11 20:28:45.896259273 +0200
-@@ -952,6 +952,15 @@
+--- upower-0.99.4.20150716/src/linux/up-device-supply.c.orig	2015-09-11 20:37:01.513698444 +0200
++++ upower-0.99.4.20150716/src/linux/up-device-supply.c	2015-09-11 20:38:32.173174647 +0200
+@@ -916,6 +916,7 @@
+ 	const gchar *native_path;
+ 	const gchar *scope;
+ 	gchar *device_type = NULL;
++	gchar *model_name = NULL;
+ 	gchar *input_path = NULL;
+ 	gchar *subdir = NULL;
+ 	GDir *dir = NULL;
+@@ -952,6 +953,15 @@
  		goto out;
  	}
  
