@@ -1,0 +1,18 @@
+--- upower-0.99.4.20150716/src/linux/up-device-supply.c.orig	2015-09-11 20:24:00.811831388 +0200
++++ upower-0.99.4.20150716/src/linux/up-device-supply.c	2015-09-11 20:28:45.896259273 +0200
+@@ -952,6 +952,15 @@
+ 		goto out;
+ 	}
+ 
++	/* ignore Logitech diNovo Edge (Wireless Keyboard) -- as the battery reading is wrong  */
++	model_name = up_device_supply_get_string (native_path, "model_name");
++	if (model_name != NULL) {
++		if (g_ascii_strcasecmp (model_name, "Logitech diNovo Edge") == 0) {
++			g_warning ("Ignoring Logitech diNovo Edge");
++			goto out;
++		}
++	}
++
+ 	/* try to detect using the device type */
+ 	device_type = up_device_supply_get_string (native_path, "type");
+ 	if (device_type != NULL) {
