@@ -1,0 +1,23 @@
+--- gdm-3.16.2/daemon/gdm-server.c.orig	2015-07-02 15:54:42.000000000 +0200
++++ gdm-3.16.2/daemon/gdm-server.c	2015-09-11 14:33:13.837337227 +0200
+@@ -276,7 +276,7 @@
+                 debug_options = "";
+         }
+ 
+-#define X_SERVER_ARG_FORMAT " -background none -noreset -verbose %s%s"
++#define X_SERVER_ARG_FORMAT " -background none -noreset -dpi 80 -verbose %s%s"
+ 
+ #ifdef WITH_SYSTEMD
+ 
+--- gdm-3.16.2/daemon/gdm-x-session.c.orig	2015-07-02 15:56:50.000000000 +0200
++++ gdm-3.16.2/daemon/gdm-x-session.c	2015-09-11 14:36:47.983309896 +0200
+@@ -260,6 +260,9 @@
+         g_ptr_array_add (arguments, "-noreset");
+         g_ptr_array_add (arguments, "-keeptty");
+ 
++        g_ptr_array_add (arguments, "-dpi");
++        g_ptr_array_add (arguments, "80");
++
+         g_ptr_array_add (arguments, "-verbose");
+         if (state->debug_enabled) {
+                 g_ptr_array_add (arguments, "7");
