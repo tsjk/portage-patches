@@ -1,0 +1,15 @@
+--- drivers/usb/storage/unusual_devs.h.orig	1970-01-01 01:00:00.000000000 +0100
++++ drivers/usb/storage/unusual_devs.h	1970-01-01 01:00:00.000000000 +0100
+@@ -2208,6 +2208,12 @@
+ 		"Digital MP3 Audio Player",
+ 		USB_SC_DEVICE, USB_PR_DEVICE, NULL, US_FL_NOT_LOCKABLE ),
+ 
++/* Reported-by: Takeo Nakayama <javhera@gmx.com> */
++UNUSUAL_DEV(  0x357d, 0x7788, 0x0000, 0x9999,
++		"JMicron",
++		"JMS566",
++		USB_SC_DEVICE, USB_PR_DEVICE, NULL, US_FL_BROKEN_FUA ),
++
+ /* Unusual uas devices */
+ #if IS_ENABLED(CONFIG_USB_UAS)
+ #include "unusual_uas.h"
