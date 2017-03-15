@@ -1,5 +1,5 @@
---- arch/x86/kernel/cpu/mtrr/cleanup.c	2013-07-01 00:13:29.000000000 +0200
-+++ arch/x86/kernel/cpu/mtrr/cleanup.c.patched	2013-08-25 11:06:32.740807063 +0200
+--- ./arch/x86/kernel/cpu/mtrr/cleanup.c.orig	1970-01-01 01:00:00.000000000 +0100
++++ ./arch/x86/kernel/cpu/mtrr/cleanup.c	1970-01-01 01:00:00.000000000 +0100
 @@ -682,6 +682,7 @@
  	mtrr_type type;
  	int index_good;

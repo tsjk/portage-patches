@@ -1,6 +1,6 @@
---- drivers/usb/storage/unusual_devs.h.orig	1970-01-01 01:00:00.000000000 +0100
-+++ drivers/usb/storage/unusual_devs.h	1970-01-01 01:00:00.000000000 +0100
-@@ -2208,6 +2208,12 @@
+--- orig/drivers/usb/storage/unusual_devs.h.orig	1970-01-01 01:00:00.000000000 +0100
++++ patched/drivers/usb/storage/unusual_devs.h	1970-01-01 01:00:00.000000000 +0100
+@@ -2328,6 +2328,12 @@
  		"Digital MP3 Audio Player",
  		USB_SC_DEVICE, USB_PR_DEVICE, NULL, US_FL_NOT_LOCKABLE ),
  
