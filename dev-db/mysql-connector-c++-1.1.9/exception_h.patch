@@ -1,0 +1,27 @@
+--- orig/cppconn/exception.h.orig	2017-05-10 18:14:59.000000000 +0200
++++ patched/cppconn/exception.h	2019-01-06 11:47:30.768396061 +0100
+@@ -35,6 +35,7 @@
+ namespace sql
+ {
+ 
++#if (__cplusplus < 201103L)
+ #define MEMORY_ALLOC_OPERATORS(Class) \
+ 	void* operator new(size_t size) throw (std::bad_alloc) { return ::operator new(size); }  \
+ 	void* operator new(size_t, void*) throw(); \
+@@ -43,6 +44,16 @@
+ 	void* operator new[](size_t, void*) throw(); \
+ 	void* operator new[](size_t, const std::nothrow_t&) throw(); \
+ 	void* operator new(size_t N, std::allocator<Class>&);
++#else
++#define MEMORY_ALLOC_OPERATORS(Class) \
++	void* operator new(size_t size){ return ::operator new(size); }  \
++	void* operator new(size_t, void*) noexcept; \
++	void* operator new(size_t, const std::nothrow_t&) noexcept; \
++	void* operator new[](size_t); \
++	void* operator new[](size_t, void*) noexcept; \
++	void* operator new[](size_t, const std::nothrow_t&) noexcept; \
++	void* operator new(size_t N, std::allocator<Class>&);
++#endif
+ 
+ #ifdef _WIN32
+ #pragma warning (disable : 4290)
