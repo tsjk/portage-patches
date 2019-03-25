@@ -1,7 +1,0 @@
---- a/src/drivers.cpp
-+++ b/src/drivers.cpp
-@@ -374,3 +374,3 @@
- 	int tmp;
--	while (!f.eof()) {
-+	while (!f.eof() && f.tellg() >= 0) {
- 		f >> tmp;
