@@ -1,5 +1,5 @@
---- drivers/ata/sata_sil24.c.orig	2018-10-22 08:37:37.000000000 +0200
-+++ drivers/ata/sata_sil24.c	2019-04-19 13:43:04.023990212 +0200
+--- ./drivers/ata/sata_sil24.c.orig	2018-10-22 08:37:37.000000000 +0200
++++ ./drivers/ata/sata_sil24.c	2019-04-19 13:43:04.023990212 +0200
 @@ -1310,21 +1310,10 @@
  	if (!host)
  		return -ENOMEM;
