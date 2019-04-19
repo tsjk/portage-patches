@@ -1,0 +1,36 @@
+--- drivers/ata/sata_sil24.c.orig	2018-10-22 08:37:37.000000000 +0200
++++ drivers/ata/sata_sil24.c	2019-04-19 13:43:04.023990212 +0200
+@@ -1310,21 +1310,10 @@
+ 	if (!host)
+ 		return -ENOMEM;
+ 	host->iomap = iomap;
+ 
+ 	/* configure and activate the device */
+-	if (!dma_set_mask(&pdev->dev, DMA_BIT_MASK(64))) {
+-		rc = dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(64));
+-		if (rc) {
+-			rc = dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(32));
+-			if (rc) {
+-				dev_err(&pdev->dev,
+-					"64-bit DMA enable failed\n");
+-				return rc;
+-			}
+-		}
+-	} else {
+ 		rc = dma_set_mask(&pdev->dev, DMA_BIT_MASK(32));
+ 		if (rc) {
+ 			dev_err(&pdev->dev, "32-bit DMA enable failed\n");
+ 			return rc;
+ 		}
+@@ -1332,11 +1321,10 @@
+ 		if (rc) {
+ 			dev_err(&pdev->dev,
+ 				"32-bit consistent DMA enable failed\n");
+ 			return rc;
+ 		}
+-	}
+ 
+ 	/* Set max read request size to 4096.  This slightly increases
+ 	 * write throughput for pci-e variants.
+ 	 */
+ 	pcie_set_readrq(pdev, 4096);
