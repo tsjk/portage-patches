@@ -1,2 +1,4 @@
-357d:7788-unusual_devs.patch
 mtrr-cleanup.patch
+sata_sil24.patch
+unusual_devs.patch
+unusual_uas.patch
