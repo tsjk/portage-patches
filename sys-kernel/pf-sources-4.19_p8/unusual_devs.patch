@@ -1,5 +1,5 @@
---- drivers/usb/storage/unusual_devs.h.orig	2019-10-19 21:08:51.072420348 +0200
-+++ drivers/usb/storage/unusual_devs.h	2019-10-19 21:12:53.217068867 +0200
+--- ./drivers/usb/storage/unusual_devs.h.orig	2019-10-19 21:08:51.072420348 +0200
++++ ./drivers/usb/storage/unusual_devs.h	2019-10-19 21:12:53.217068867 +0200
 @@ -2100,7 +2100,7 @@
  		US_FL_IGNORE_RESIDUE ),
  
