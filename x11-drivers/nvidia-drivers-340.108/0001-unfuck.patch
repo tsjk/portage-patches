@@ -1,7 +1,7 @@
-diff --git ./kernel/uvm/nvidia_uvm_lite.c ./kernel/uvm/nvidia_uvm_lite.c
+diff --git a/uvm/nvidia_uvm_lite.c b/uvm/nvidia_uvm_lite.c
 index 6943e7c..c5d232c 100644
---- ./kernel/uvm/nvidia_uvm_lite.c
-+++ ./kernel/uvm/nvidia_uvm_lite.c
+--- a/uvm/nvidia_uvm_lite.c
++++ b/uvm/nvidia_uvm_lite.c
 @@ -820,7 +820,13 @@ done:
  }
  
