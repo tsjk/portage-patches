@@ -1,9 +1,9 @@
 From: Osvaldo Costa <osvaldogcosta90@gmail.com>
 --
-diff --git a/uvm/Makefile b/uvm/Makefile
+diff --git ./kernel/uvm/Makefile ./kernel/uvm/Makefile
 index 0cad8ff..043a08d 100644
---- a/uvm/Makefile
-+++ b/uvm/Makefile
+--- ./kernel/uvm/Makefile
++++ ./kernel/uvm/Makefile
 @@ -207,6 +207,7 @@ ccflags-y += $(EXTRA_CFLAGS)
  
  RM_MODULE_SYMVERS:= $(RM_OUT_DIR)/Module.symvers
