@@ -1,0 +1,35 @@
+diff -ur tensorflow-2.1.0.orig/tensorflow/lite/tools/optimize/BUILD tensorflow-2.1.0/tensorflow/lite/tools/optimize/BUILD
+--- tensorflow-2.1.0.orig/tensorflow/lite/tools/optimize/BUILD	2019-10-14 23:08:43.000000000 +0200
++++ tensorflow-2.1.0/tensorflow/lite/tools/optimize/BUILD	2020-04-30 02:25:22.551231534 +0200
+@@ -26,6 +26,7 @@
+         "//tensorflow/lite/schema:schema_fbs",
+         "//third_party/eigen3",
+         "@com_google_absl//absl/memory",
++        "@com_google_absl//absl/strings",
+     ],
+ )
+ 
+@@ -40,6 +41,7 @@
+         "//tensorflow/lite/kernels/internal:types",
+         "//tensorflow/lite/schema:schema_fbs",
+         "@com_google_absl//absl/memory",
++        "@com_google_absl//absl/strings",
+     ],
+ )
+ 
+@@ -94,6 +96,7 @@
+         "//tensorflow/lite:framework",
+         "//tensorflow/lite/schema:schema_fbs",
+         "@com_google_absl//absl/memory",
++        "@com_google_absl//absl/strings",
+         "@com_google_googletest//:gtest",
+         "@flatbuffers",
+     ],
+@@ -107,6 +110,7 @@
+         ":quantization_utils",
+         ":model_utils",
+         "@com_google_absl//absl/memory",
++        "@com_google_absl//absl/strings",
+         "@com_google_absl//absl/container:flat_hash_map",
+         "@flatbuffers",
+         "//tensorflow/lite:framework",
