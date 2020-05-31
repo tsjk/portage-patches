@@ -1,7 +1,7 @@
-diff --git a/Makefile b/Makefile
+diff --git ./kernel/Makefile ./kernel/Makefile
 index 125a690..7575e44 100644
---- a/Makefile
-+++ b/Makefile
+--- ./kernel/Makefile
++++ ./kernel/Makefile
 @@ -114,6 +114,7 @@ COMPILE_TESTS = \
  	nvmap_support \
  	acpi_evaluate_integer \
@@ -29,10 +29,10 @@ index 125a690..7575e44 100644
  	drm_gem_object_put_unlocked \
  	drm_driver_legacy_feature_bit_present \
  	drm_driver_prime_flag_present
-diff --git a/conftest.sh b/conftest.sh
+diff --git ./kernel/conftest.sh ./kernel/conftest.sh
 index b7a85f0..08b20cd 100755
---- a/conftest.sh
-+++ b/conftest.sh
+--- ./kernel/conftest.sh
++++ ./kernel/conftest.sh
 @@ -1188,6 +1188,19 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_IOREMAP_CACHE_PRESENT" "" "functions"
          ;;
@@ -125,10 +125,10 @@ index b7a85f0..08b20cd 100755
          drm_gem_object_put_unlocked)
              #
              # Determine if the function drm_gem_object_put_unlocked() is present.
-diff --git a/nv-drm.c b/nv-drm.c
+diff --git ./kernel/nv-drm.c ./kernel/nv-drm.c
 index 0d1cdbf..4e6fa48 100644
---- a/nv-drm.c
-+++ b/nv-drm.c
+--- ./kernel/nv-drm.c
++++ ./kernel/nv-drm.c
 @@ -47,7 +47,61 @@
  #include <drm/drm_gem.h>
  #endif
@@ -192,10 +192,10 @@ index 0d1cdbf..4e6fa48 100644
  #define nv_drm_pci_init drm_legacy_pci_init
  #define nv_drm_pci_exit drm_legacy_pci_exit
  #else
-diff --git a/nv-linux.h b/nv-linux.h
+diff --git ./kernel/nv-linux.h ./kernel/nv-linux.h
 index b90eb95..1d709a3 100644
---- a/nv-linux.h
-+++ b/nv-linux.h
+--- ./kernel/nv-linux.h
++++ ./kernel/nv-linux.h
 @@ -688,11 +688,15 @@ extern nv_spinlock_t km_lock;
          VM_ALLOC_RECORD(ptr, size, "vm_ioremap"); \
      }
@@ -273,10 +273,10 @@ index b90eb95..1d709a3 100644
  
  #endif  /* CONFIG_PROC_FS */
  
-diff --git a/nv-procfs.c b/nv-procfs.c
+diff --git ./kernel/nv-procfs.c ./kernel/nv-procfs.c
 index ebca3e8..110cce1 100644
---- a/nv-procfs.c
-+++ b/nv-procfs.c
+--- ./kernel/nv-procfs.c
++++ ./kernel/nv-procfs.c
 @@ -409,6 +409,15 @@ done:
      return ((status < 0) ? status : (int)count);
  }
@@ -325,10 +325,10 @@ index ebca3e8..110cce1 100644
  
  static int
  nv_procfs_read_text_file(
-diff --git a/nv-time.h b/nv-time.h
+diff --git ./kernel/nv-time.h ./kernel/nv-time.h
 index a34ceb2..c904913 100644
---- a/nv-time.h
-+++ b/nv-time.h
+--- ./kernel/nv-time.h
++++ ./kernel/nv-time.h
 @@ -28,6 +28,10 @@
  #include <linux/ktime.h>
  #endif
