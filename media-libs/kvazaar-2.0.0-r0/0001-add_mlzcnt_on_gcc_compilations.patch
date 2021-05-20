@@ -1,0 +1,16 @@
+Add -mlzcnt on GCC compilations.
+
+Closes: https://bugs.gentoo.org/739776
+Signed-off-by: Francisco Blas Izquierdo Riera (klondike) <klondike@gentoo.org>
+
+--- ./src/Makefile.am
++++ ./src/Makefile.am
+@@ -224,7 +224,7 @@
+ if HAVE_X86
+ 
+ if HAVE_AVX2_GCC
+-libavx2_la_CFLAGS = -mavx2 -mbmi -mabm -mbmi2
++libavx2_la_CFLAGS = -mavx2 -mbmi -mabm -mlzcnt -mbmi2
+ endif
+ if HAVE_AVX2_CLANG
+ libavx2_la_CFLAGS = -mavx2 -mbmi -mpopcnt -mlzcnt -mbmi2
