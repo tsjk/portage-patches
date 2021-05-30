@@ -1,0 +1,14 @@
+--- ./drivers/ata/sata_sil24.c.orig	2019-11-25 01:32:01.000000000 +0100
++++ ./drivers/ata/sata_sil24.c	2020-01-05 19:10:34.663093597 +0100
+@@ -1301,9 +1301,9 @@
+ 	host->iomap = iomap;
+ 
+ 	/* configure and activate the device */
+-	rc = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
++	rc = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+ 	if (rc) {
+-		dev_err(&pdev->dev, "DMA enable failed\n");
++		dev_err(&pdev->dev, "32-bit DMA enable failed\n");
+ 		return rc;
+ 	}
+ 
