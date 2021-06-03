@@ -9,29 +9,10 @@ diff -Nru rstudio-rstudio-aee4453.original/src/cpp/CMakeLists.txt rstudio-rstudi
  
  # explicitly do not use new c++ 11 features for websocketpp
  # they currently do not work with our source
-diff -Nru rstudio-rstudio-aee4453.original/src/cpp/core/file_lock/FileLock.cpp rstudio-rstudio-aee4453/src/cpp/core/file_lock/FileLock.cpp
---- rstudio-rstudio-aee4453.original/src/cpp/core/file_lock/FileLock.cpp	2020-09-18 06:16:48.000000000 +1200
-+++ rstudio-rstudio-aee4453/src/cpp/core/file_lock/FileLock.cpp	2020-12-23 17:29:17.029783097 +1300
-@@ -26,6 +26,7 @@
- #include <core/system/Environment.hpp>
- 
- #include <boost/algorithm/string.hpp>
-+#include <boost/bind/bind.hpp>
- 
- // borrowed from SessionConstants.hpp
- #define kRStudioSessionRoute "RSTUDIO_SESSION_ROUTE"
 diff -Nru rstudio-rstudio-aee4453.original/src/cpp/core/HtmlUtils.cpp rstudio-rstudio-aee4453/src/cpp/core/HtmlUtils.cpp
 --- rstudio-rstudio-aee4453.original/src/cpp/core/HtmlUtils.cpp	2020-09-18 06:16:48.000000000 +1200
 +++ rstudio-rstudio-aee4453/src/cpp/core/HtmlUtils.cpp	2020-12-23 17:29:17.029783097 +1300
-@@ -19,6 +19,7 @@
- 
- #include <boost/format.hpp>
- #include <boost/algorithm/string/predicate.hpp>
-+#include <boost/bind/bind.hpp>
- 
- #include <core/Base64.hpp>
- #include <core/FileSerializer.hpp>
-@@ -30,6 +31,7 @@
+@@ -31,6 +32,7 @@
  namespace core {
  namespace html_utils {
  
@@ -48,9 +29,9 @@ diff -Nru rstudio-rstudio-aee4453.original/src/cpp/core/system/PosixChildProcess
  #include <boost/format.hpp>
 +#include <boost/bind/bind.hpp>
  
- namespace rstudio {
- namespace core {
-@@ -60,7 +61,7 @@
+ using namespace boost::placeholders;
+ 
+@@ -62,7 +63,7 @@
     std::for_each(processes.begin(),
                   processes.end(),
                   boost::bind(&ChildProcessTracker::attemptToReapProcess,
@@ -62,33 +43,18 @@ diff -Nru rstudio-rstudio-aee4453.original/src/cpp/core/system/PosixChildProcess
 diff -Nru rstudio-rstudio-aee4453.original/src/cpp/core/system/PosixOutputCapture.cpp rstudio-rstudio-aee4453/src/cpp/core/system/PosixOutputCapture.cpp
 --- rstudio-rstudio-aee4453.original/src/cpp/core/system/PosixOutputCapture.cpp	2020-09-18 06:16:48.000000000 +1200
 +++ rstudio-rstudio-aee4453/src/cpp/core/system/PosixOutputCapture.cpp	2020-12-23 17:29:17.029783097 +1300
-@@ -27,12 +27,14 @@
+@@ -27,6 +27,7 @@
  #include <core/BoostErrors.hpp>
  
  #include <core/system/System.hpp>
 +#include <boost/bind/bind.hpp>
- 
+
+ using namespace boost::placeholders; 
  namespace rstudio {
- namespace core {
- namespace system {
- 
- namespace {
-+using namespace boost::placeholders;
- 
- void readFromPipe(
-       int pipeFd,
 diff -Nru rstudio-rstudio-aee4453.original/src/cpp/r/session/RStdCallbacks.cpp rstudio-rstudio-aee4453/src/cpp/r/session/RStdCallbacks.cpp
 --- rstudio-rstudio-aee4453.original/src/cpp/r/session/RStdCallbacks.cpp	2020-09-18 06:16:48.000000000 +1200
 +++ rstudio-rstudio-aee4453/src/cpp/r/session/RStdCallbacks.cpp	2020-12-23 17:29:17.029783097 +1300
-@@ -19,6 +19,7 @@
- 
- #include <boost/function.hpp>
- #include <boost/regex.hpp>
-+#include <boost/bind/bind.hpp>
- 
- #include <r/RExec.hpp>
- #include <r/ROptions.hpp>
-@@ -64,6 +65,8 @@
+@@ -65,6 +66,8 @@
  
  namespace {
  
