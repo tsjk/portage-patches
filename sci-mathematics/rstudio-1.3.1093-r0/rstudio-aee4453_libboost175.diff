@@ -63,3 +63,15 @@ diff -Nru rstudio-rstudio-aee4453.original/src/cpp/r/session/RStdCallbacks.cpp r
  // have we completed our one-time initialization yet?
  bool s_initialized = false;
  
+diff -ub ./src/cpp/CMakeLists.txt.orig ./src/cpp/CMakeLists.txt
+--- ./src/cpp/CMakeLists.txt.orig	2021-06-03 12:08:23.961683407 +0200
++++ ./src/cpp/CMakeLists.txt	2021-06-03 12:18:07.168020740 +0200
+@@ -273,7 +273,7 @@
+ # allow opt-in to using Boost.Signals2
+ # TODO: remove this in RStudio v1.3 and port to signals2
+ if(NOT RSTUDIO_BOOST_SIGNALS_VERSION)
+-   if (Boost_VERSION LESS 106900)
++   if (Boost_VERSION VERSION_LESS 1.69.0)
+       set(RSTUDIO_BOOST_SIGNALS_VERSION 1)
+    else()
+       set(RSTUDIO_BOOST_SIGNALS_VERSION 2)
