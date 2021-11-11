@@ -1,0 +1,11 @@
+Origin: bugs.Gentoo.org
+Index: src/java.desktop/share/legal/mesa3d.md
+===================================================================
+--- a/src/java.desktop/share/legal/mesa3d.md
++++ b/src/java.desktop/share/legal/mesa3d.md
+@@ -1,4 +1,4 @@
+-## Mesa 3-D Graphics Library v21.0.3
++## Mesa 3-D Graphics Library v19.2.1
+ 
+ ### Mesa License
+ 
