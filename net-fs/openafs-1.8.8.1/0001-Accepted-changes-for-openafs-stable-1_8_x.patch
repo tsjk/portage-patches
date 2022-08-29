@@ -1,0 +1,1463 @@
+From da92bee9a4fa381e09020d586b97488f9e6550fb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Michael=20La=C3=9F?= <lass@mail.uni-paderborn.de>
+Date: Thu, 21 Jul 2022 22:56:30 +0200
+Subject: [PATCH 1/6] Accepted changes for openafs-stable-1_8_x
+
+commit f8a2aceb05914908b6a9d3e03c75e3a0c5e1a55c
+Author: Cheyenne Wills <cwills@sinenomine.net>
+Date:   Tue Dec 22 11:06:42 2020 -0700
+
+    afs: Cleanup afsincludes.h indentation
+
+    Clean up the indentation of preprocessor statements
+
+    Remove commented out code.
+
+    Reviewed-on: https://gerrit.openafs.org/14471
+    Reviewed-by: Andrew Deason <adeason@sinenomine.net>
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Benjamin Kaduk <kaduk@mit.edu>
+    (cherry picked from commit 031ebf43a8d4db79ee1aa9aff571094354c548b1)
+
+    Change-Id: I04c86b8ac8735ec50bf955bb418bb81ee5105afd
+    Reviewed-on: https://gerrit.openafs.org/14931
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Cheyenne Wills <cwills@sinenomine.net>
+    Reviewed-by: Michael Meffie <mmeffie@sinenomine.net>
+    Reviewed-by: Mark Vitale <mvitale@sinenomine.net>
+    Reviewed-by: Stephan Wiesand <stephan.wiesand@desy.de>
+
+commit 7a03627a64789b6c5fb44def81d4d39df3587d9d
+Author: Cheyenne Wills <cwills@sinenomine.net>
+Date:   Tue Dec 22 11:03:33 2020 -0700
+
+    afs: Clean up VNOPS/afs_vnops_attrs.c indentation
+
+    Clean up the indentation of preprocessor statements, add #endif comments
+    where helpful.
+
+    Clean up whitespace in code indentation.
+
+    Reviewed-on: https://gerrit.openafs.org/14470
+    Reviewed-by: Andrew Deason <adeason@sinenomine.net>
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Benjamin Kaduk <kaduk@mit.edu>
+    (cherry picked from commit 873a5d9e8835b969370f1f031acef60745a0fff8)
+
+    Change-Id: Ia3c41652e99c44164dec852b0f8ab2f103e8e3c1
+    Reviewed-on: https://gerrit.openafs.org/14930
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Cheyenne Wills <cwills@sinenomine.net>
+    Reviewed-by: Michael Meffie <mmeffie@sinenomine.net>
+    Reviewed-by: Mark Vitale <mvitale@sinenomine.net>
+    Reviewed-by: Stephan Wiesand <stephan.wiesand@desy.de>
+
+commit f92508b5f7cbf9562f841d226cc9cd9f345c020b
+Author: Cheyenne Wills <cwills@sinenomine.net>
+Date:   Wed Dec 23 13:25:31 2020 -0700
+
+    afs: Clean up afs_init.c indentation
+
+    Clean up the indentation of preprocessor statements, add #endif comments
+    where helpful.
+
+    Clean up whitespace in code indentation.
+
+    Reviewed-on: https://gerrit.openafs.org/14469
+    Reviewed-by: Andrew Deason <adeason@sinenomine.net>
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Benjamin Kaduk <kaduk@mit.edu>
+    (cherry picked from commit d7469128ceefbd96b61f32f62fd1e11c3674dac8)
+
+    Change-Id: Iccf5587e02b3caf0ec6725dc554255366b879d9e
+    Reviewed-on: https://gerrit.openafs.org/14929
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Cheyenne Wills <cwills@sinenomine.net>
+    Reviewed-by: Michael Meffie <mmeffie@sinenomine.net>
+    Reviewed-by: Stephan Wiesand <stephan.wiesand@desy.de>
+
+commit 97dd85ba97799fe97d424bbdbad9ced6e582ebaa
+Author: Mark Vitale <mvitale@sinenomine.net>
+Date:   Sun May 10 22:13:13 2020 -0400
+
+    DARWIN: remove vestigial etap_event_t typedefs
+
+    These typedefs have been present since commit
+    a41175cfbbf4d06ccfe14ae54bef8b7464ecd80b
+    "initial-darwin-support-20010327"; at least some of this material was
+    obtained directly from IBM after the initial code import.
+
+    Based on research of old Darwin source code and kernel documentation,
+    the Event Trace Analysis Package (ETAP) was a lock-profiling interface
+    provided in older versions of Mach and xnu.  ETAP was not enabled by
+    default; the kernel had to be recompiled with certain options to enable
+    it.  Support for ETAP was removed from the xnu tree sometime between
+    xnu-517 (10.3 Panther) and xnu-792 (10.4 Tiger), although some
+    references remain in the latter under PPC support (osfmk/ppc/hw_lock.s).
+    All remaining references to etap_event_t disappeared when PPC support
+    was removed, some time between xnu-1456.1.26 (10.6 Snow Leopard) and
+    xnu-1699.24.8 (10.7.2 Lion).
+
+    Therefore, it is possible that these typedefs were needed in the past by
+    (IBM/Transarc) AFS to support use of some lock APIs (e.g.,
+    simple_lock_init, usimple_lock_init) after the ETAP code was withdrawn
+    from xnu.  However, these typedefs have probably always been vestigial
+    for OpenAFS, because OpenAFS has never used any lock API that took
+    etap_event_t as an argument.
+
+    Regardless, OpenAFS does not need these definitions to build and run on
+    any currently supported version of macOS.
+
+    Remove the vestigial code.
+
+    No functional change should be incurred by this commit.
+
+    Reviewed-on: https://gerrit.openafs.org/14219
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Marcio Brito Barbosa <mbarbosa@sinenomine.net>
+    Reviewed-by: Benjamin Kaduk <kaduk@mit.edu>
+    (cherry picked from commit 145c90bdbeeff4ea95acacd7dc110f0c6fcba281)
+
+    Change-Id: I96cdfe756cb8917079a7cc46d6186e69337caf0d
+    Reviewed-on: https://gerrit.openafs.org/14928
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Cheyenne Wills <cwills@sinenomine.net>
+    Reviewed-by: Michael Meffie <mmeffie@sinenomine.net>
+    Reviewed-by: Mark Vitale <mvitale@sinenomine.net>
+    Reviewed-by: Stephan Wiesand <stephan.wiesand@desy.de>
+
+commit 8db804eb1ec3f6a4b41dafff31f4805688a3da60
+Author: Andrew Deason <adeason@sinenomine.net>
+Date:   Thu Jul 18 16:21:10 2019 -0500
+
+    afs: Handle osi_NewVnode failures
+
+    Currently, code inside afs_vcache.c assumes that osi_NewVnode always
+    returns non-NULL, which means that osi_NewVnode must panic if it
+    cannot create a new vnode.
+
+    All of the callers of afs_GetVCache, afs_NewVCache, etc, already
+    handle getting a NULL return, though (after all, the given fid may not
+    exist or be inaccessible due to network errors, etc). So, just
+    propagate NULL returns from osi_NewVnode up to our callers, to avoid
+    panics in these situations.
+
+    Modify osi_NewVnode on many arches to return an error on allocation
+    failure, instead of panic'ing.
+
+    Reviewed-on: https://gerrit.openafs.org/13701
+    Reviewed-by: Benjamin Kaduk <kaduk@mit.edu>
+    Reviewed-by: Yadavendra Yadav <yadayada@in.ibm.com>
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    (cherry picked from commit ea9e5e8519dc486cfb019447ee5d695de104079d)
+
+    Change-Id: I2a3c5aac44a57093caee4008b86420ed05c66eb7
+    Reviewed-on: https://gerrit.openafs.org/14927
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Andrew Deason <adeason@sinenomine.net>
+    Reviewed-by: Cheyenne Wills <cwills@sinenomine.net>
+    Reviewed-by: Michael Meffie <mmeffie@sinenomine.net>
+    Reviewed-by: Stephan Wiesand <stephan.wiesand@desy.de>
+
+commit dfc2626e2aac0904c954915ed1d474030414cb78
+Author: Mark Vitale <mvitale@sinenomine.net>
+Date:   Fri Oct 5 10:39:23 2018 -0400
+
+    rx: remove rx_atomic bitops
+
+    The rx_atomic bitops were introduced with commit
+    1839cdbe268f4b19ac8e81ae78548f5c78e0c641 ("rx: atomic bit ops").
+
+    The last (only) reference to them was recently removed with commit
+    5ced6025b9f11fadbdf2e092bf40cc87499ed277 ("rx: Convert rxinit_status to
+    rx_IsRunning()").
+
+    Remove the now unreferenced bitops.  This commit is comprised of partial
+    or complete reverts of the following commits:
+
+    ae4ad509d35 rx: fix rx_atomic warnings under Solaris (partial)
+    c16423ec4e6 rx: fix atomics on darwin (partial)
+    9dc6dd9858a rx: Fix AIX test_and_set_bit (complete)
+    1839cdbe268 rx: atomic bit ops (complete)
+
+    Note: The rx_atomic bitops for Linux systems are known to be broken due
+    to incorrect casting of rx_atomic_t into the unsigned long operand
+    expected by the native Linux bitops.  The failure modes include silent
+    overruns on little-endian and incorrect results on big-endian.  Do not
+    merely revert this commit in order to bring these bitops back into the
+    tree.
+
+    Reviewed-on: https://gerrit.openafs.org/13390
+    Reviewed-by: Benjamin Kaduk <kaduk@mit.edu>
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    (cherry picked from commit d0dbd0f12119f0e874ba30adec81061ac6ae27c7)
+
+    Change-Id: I214ec09c07fb35a4d1dbf9719ec3861bde931638
+    Reviewed-on: https://gerrit.openafs.org/14926
+    Tested-by: BuildBot <buildbot@rampaginggeek.com>
+    Reviewed-by: Cheyenne Wills <cwills@sinenomine.net>
+    Reviewed-by: Michael Meffie <mmeffie@sinenomine.net>
+    Reviewed-by: Stephan Wiesand <stephan.wiesand@desy.de>
+---
+ src/afs/AIX/osi_vcache.c       |   4 +-
+ src/afs/DARWIN/osi_vcache.c    |   4 +-
+ src/afs/FBSD/osi_vcache.c      |   3 +
+ src/afs/IRIX/osi_vcache.c      |   3 +
+ src/afs/LINUX/osi_vcache.c     |   9 +-
+ src/afs/NBSD/osi_vcache.c      |   3 +
+ src/afs/OBSD/osi_vcache.c      |   3 +
+ src/afs/SOLARIS/osi_vcache.c   |   4 +-
+ src/afs/VNOPS/afs_vnop_attrs.c | 152 +++++++++++++-------------
+ src/afs/afs_init.c             | 130 +++++++++++-----------
+ src/afs/afs_vcache.c           |   9 ++
+ src/afs/afsincludes.h          |  84 +++++++--------
+ src/afs/sysincludes.h          |   6 --
+ src/rx/rx_atomic.h             | 192 ---------------------------------
+ src/rx/rx_kcommon.h            |   6 --
+ 15 files changed, 219 insertions(+), 393 deletions(-)
+
+diff --git a/src/afs/AIX/osi_vcache.c b/src/afs/AIX/osi_vcache.c
+index d69b5e80a..83006981d 100644
+--- a/src/afs/AIX/osi_vcache.c
++++ b/src/afs/AIX/osi_vcache.c
+@@ -32,7 +32,9 @@ osi_NewVnode(void) {
+     struct vcache *tvc;
+ 
+     tvc = afs_osi_Alloc(sizeof(struct vcache));
+-    osi_Assert(tvc != NULL);
++    if (tvc == NULL) {
++	return NULL;
++    }
+ 
+ #ifdef	KERNEL_HAVE_PIN
+     pin((char *)tvc, sizeof(struct vcache));	/* XXX */
+diff --git a/src/afs/DARWIN/osi_vcache.c b/src/afs/DARWIN/osi_vcache.c
+index 6e5fcc7d7..7d19ddcc1 100644
+--- a/src/afs/DARWIN/osi_vcache.c
++++ b/src/afs/DARWIN/osi_vcache.c
+@@ -18,7 +18,9 @@ osi_NewVnode(void) {
+     struct vcache *tvc;
+ 
+     tvc = afs_osi_Alloc(sizeof(struct vcache));
+-    osi_Assert(tvc != NULL);
++    if (tvc == NULL) {
++	return NULL;
++    }
+     tvc->v = NULL; /* important to clean this, or use memset 0 */
+ 
+     return tvc;
+diff --git a/src/afs/FBSD/osi_vcache.c b/src/afs/FBSD/osi_vcache.c
+index 36596388c..2641f6230 100644
+--- a/src/afs/FBSD/osi_vcache.c
++++ b/src/afs/FBSD/osi_vcache.c
+@@ -69,6 +69,9 @@ osi_NewVnode(void) {
+     struct vcache *tvc;
+ 
+     tvc = afs_osi_Alloc(sizeof(struct vcache));
++    if (tvc == NULL) {
++	return NULL;
++    }
+     tvc->v = NULL; /* important to clean this, or use memset 0 */
+ 
+     return tvc;
+diff --git a/src/afs/IRIX/osi_vcache.c b/src/afs/IRIX/osi_vcache.c
+index 4d1a13f80..a63d28eb4 100644
+--- a/src/afs/IRIX/osi_vcache.c
++++ b/src/afs/IRIX/osi_vcache.c
+@@ -34,6 +34,9 @@ osi_NewVnode(void) {
+     char name[METER_NAMSZ];
+ 
+     avc = afs_osi_Alloc(sizeof(struct vcache));
++    if (avc == NULL) {
++	return NULL;
++    }
+ 
+     memset(avc, 0, sizeof(struct vcache));
+     avc->v.v_number = ++afsvnumbers;
+diff --git a/src/afs/LINUX/osi_vcache.c b/src/afs/LINUX/osi_vcache.c
+index 5bcc3644c..7813a39ae 100644
+--- a/src/afs/LINUX/osi_vcache.c
++++ b/src/afs/LINUX/osi_vcache.c
+@@ -146,13 +146,18 @@ osi_NewVnode(void)
+ 
+     AFS_GUNLOCK();
+     ip = new_inode(afs_globalVFS);
+-    if (!ip)
+-	osi_Panic("afs_NewVCache: no more inodes");
+     AFS_GLOCK();
++    if (ip == NULL) {
++	return NULL;
++    }
+ #if defined(STRUCT_SUPER_OPERATIONS_HAS_ALLOC_INODE)
+     tvc = VTOAFS(ip);
+ #else
+     tvc = afs_osi_Alloc(sizeof(struct vcache));
++    if (tvc == NULL) {
++	iput(ip);
++	return NULL;
++    }
+     ip->u.generic_ip = tvc;
+     tvc->v = ip;
+ #endif
+diff --git a/src/afs/NBSD/osi_vcache.c b/src/afs/NBSD/osi_vcache.c
+index 2f99075b6..5be3e1dae 100644
+--- a/src/afs/NBSD/osi_vcache.c
++++ b/src/afs/NBSD/osi_vcache.c
+@@ -43,6 +43,9 @@ osi_NewVnode(void)
+     struct vcache *tvc;
+ 
+     tvc = afs_osi_Alloc(sizeof(struct vcache));
++    if (tvc == NULL) {
++	return NULL;
++    }
+     tvc->v = NULL; /* important to clean this, or use memset 0 */
+ 
+     return tvc;
+diff --git a/src/afs/OBSD/osi_vcache.c b/src/afs/OBSD/osi_vcache.c
+index 052aafde1..58f709fe5 100644
+--- a/src/afs/OBSD/osi_vcache.c
++++ b/src/afs/OBSD/osi_vcache.c
+@@ -38,6 +38,9 @@ osi_NewVnode(void) {
+     struct vcache *tvc;
+ 
+     tvc = afs_osi_Alloc(sizeof(struct vcache));
++    if (tvc == NULL) {
++	return NULL;
++    }
+     tvc->v = NULL; /* important to clean this, or use memset 0 */
+ 
+     return tvc;
+diff --git a/src/afs/SOLARIS/osi_vcache.c b/src/afs/SOLARIS/osi_vcache.c
+index b5d989cb4..5c14bc532 100644
+--- a/src/afs/SOLARIS/osi_vcache.c
++++ b/src/afs/SOLARIS/osi_vcache.c
+@@ -31,7 +31,9 @@ osi_NewVnode(void) {
+     struct vcache *avc;
+ 
+     avc = afs_osi_Alloc(sizeof(struct vcache));
+-    osi_Assert(avc != NULL);
++    if (avc == NULL) {
++	return NULL;
++    }
+     return avc;
+ }
+ 
+diff --git a/src/afs/VNOPS/afs_vnop_attrs.c b/src/afs/VNOPS/afs_vnop_attrs.c
+index 645cf3c0a..64abe7f35 100644
+--- a/src/afs/VNOPS/afs_vnop_attrs.c
++++ b/src/afs/VNOPS/afs_vnop_attrs.c
+@@ -1,7 +1,7 @@
+ /*
+  * Copyright 2000, International Business Machines Corporation and others.
+  * All Rights Reserved.
+- * 
++ *
+  * This software has been released under the terms of the IBM Public
+  * License.  For details, see the LICENSE file in the top-level source
+  * directory or online at http://www.openafs.org/dl/license10.html
+@@ -98,9 +98,9 @@ afs_CopyOutAttrs(struct vcache *avc, struct vattr *attrs)
+     VATTR_RETURN(attrs, va_fsid, vfs_statfs(vnode_mount(AFSTOV(avc)))->f_fsid.val[0]);
+ #elif defined(AFS_DARWIN_ENV)
+     attrs->va_fsid = avc->v->v_mount->mnt_stat.f_fsid.val[0];
+-#else /* ! AFS_DARWIN_ENV */
++#else
+     attrs->va_fsid = 1;
+-#endif 
++#endif /* AFS_SUN5_ENV */
+     if (avc->mvstat == AFS_MVSTAT_ROOT) {
+ 	tvp = afs_GetVolume(&avc->f.fid, 0, READ_LOCK);
+ 	/* The mount point's vnode. */
+@@ -115,7 +115,7 @@ afs_CopyOutAttrs(struct vcache *avc, struct vattr *attrs)
+ 	} else
+ 	    attrs->va_nodeid = 2;
+     } else
+-	attrs->va_nodeid = 
++	attrs->va_nodeid =
+ 	      afs_calc_inum(avc->f.fid.Cell,
+ 			    avc->f.fid.Fid.Volume,
+ 			    avc->f.fid.Fid.Vnode);
+@@ -123,7 +123,7 @@ afs_CopyOutAttrs(struct vcache *avc, struct vattr *attrs)
+     attrs->va_nlink = fakedir ? 100 : avc->f.m.LinkCount;
+     attrs->va_size = fakedir ? 4096 : avc->f.m.Length;
+ #if defined(AFS_FBSD_ENV) || defined(AFS_DFBSD_ENV)
+-        vnode_pager_setsize(vp, (u_long) attrs->va_size);
++    vnode_pager_setsize(vp, (u_long) attrs->va_size);
+ #endif
+     attrs->va_atime.tv_sec = attrs->va_mtime.tv_sec = attrs->va_ctime.tv_sec =
+ 	fakedir ? 0 : (int)avc->f.m.Date;
+@@ -135,7 +135,7 @@ afs_CopyOutAttrs(struct vcache *avc, struct vattr *attrs)
+      * much, and "&" is a lot faster than "%".
+      */
+ #if defined(AFS_DARWIN_ENV) || defined(AFS_FBSD_ENV)
+-    /* nfs on these systems puts an 0 in nsec and stores the nfs usec (aka 
++    /* nfs on these systems puts an 0 in nsec and stores the nfs usec (aka
+      * dataversion) in va_gen */
+ 
+     attrs->va_atime.tv_nsec = attrs->va_mtime.tv_nsec =
+@@ -148,7 +148,7 @@ afs_CopyOutAttrs(struct vcache *avc, struct vattr *attrs)
+ #else
+     attrs->va_atime.tv_usec = attrs->va_mtime.tv_usec =
+ 	attrs->va_ctime.tv_usec = (hgetlo(avc->f.m.DataVersion) & 0x7ffff);
+-#endif
++#endif /* AFS_DARWIN_ENV || AFS_FBSD_ENV */
+ #if defined(AFS_DARWIN_ENV) || defined(AFS_XBSD_ENV)
+     attrs->va_flags = 0;
+ #endif
+@@ -165,13 +165,13 @@ afs_CopyOutAttrs(struct vcache *avc, struct vattr *attrs)
+ 
+     /*
+      * Below return 0 (and not 1) blocks if the file is zero length. This conforms
+-     * better with the other filesystems that do return 0.      
++     * better with the other filesystems that do return 0.
+      */
+ #if defined(AFS_DARWIN_ENV) || defined(AFS_XBSD_ENV)
+     attrs->va_bytes = (attrs->va_size ? (attrs->va_size + 1023) : 1024);
+-#ifdef	va_bytes_rsv
++# ifdef va_bytes_rsv
+     attrs->va_bytes_rsv = -1;
+-#endif
++# endif
+ #elif defined(AFS_HPUX_ENV)
+     attrs->va_blocks = (attrs->va_size ? ((attrs->va_size + 1023)>>10) : 0);
+ #elif defined(AFS_SGI_ENV)
+@@ -180,13 +180,13 @@ afs_CopyOutAttrs(struct vcache *avc, struct vattr *attrs)
+     attrs->va_nblocks = (attrs->va_size ? ((attrs->va_size + 1023)>>10)<<1:0);
+ #else /* everything else */
+     attrs->va_blocks = (attrs->va_size ? ((attrs->va_size + 1023)>>10)<<1:0);
+-#endif
++#endif /* AFS_DARWIN_ENV || AFS_XBSD_ENV */
+     return 0;
+ }
+ 
+ 
+ 
+-#if	defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
++#if defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
+ int
+ afs_getattr(OSI_VC_DECL(avc), struct vattr *attrs, int flags,
+ 	    afs_ucred_t *acred)
+@@ -289,14 +289,14 @@ afs_getattr(OSI_VC_DECL(avc), struct vattr *attrs, afs_ucred_t *acred)
+ 		     *  like in the nfs exporter case, we OR in the user bits
+ 		     *  into the group and other bits. We need to do this
+ 		     *  because there is no RFS_ACCESS call and thus nfs
+-		     *  clients implement nfs_access by interpreting the 
++		     *  clients implement nfs_access by interpreting the
+ 		     *  mode bits in the traditional way, which of course
+ 		     *  loses with afs.
+ 		     */
+ 		    ubits = (attrs->va_mode & 0700) >> 6;
+ 		    attrs->va_mode = attrs->va_mode | ubits | (ubits << 3);
+ 		    /* If it's the root of AFS, replace the inode number with the
+-		     * inode number of the mounted on directory; otherwise this 
++		     * inode number of the mounted on directory; otherwise this
+ 		     * confuses getwd()... */
+ #ifdef AFS_LINUX22_ENV
+ 		    if (avc == afs_globalVp) {
+@@ -305,33 +305,33 @@ afs_getattr(OSI_VC_DECL(avc), struct vattr *attrs, afs_ucred_t *acred)
+ 		    }
+ #else
+ 		    if (
+-#if defined(AFS_DARWIN_ENV)
++# if defined(AFS_DARWIN_ENV)
+ 			vnode_isvroot(AFSTOV(avc))
+-#elif defined(AFS_NBSD50_ENV)
++# elif defined(AFS_NBSD50_ENV)
+ 			AFSTOV(avc)->v_vflag & VV_ROOT
+-#else
++# else
+ 			AFSTOV(avc)->v_flag & VROOT
+-#endif
++# endif /* AFS_DARWIN_ENV */
+ 			) {
+ 			struct vnode *vp = AFSTOV(avc);
+ 
+-#ifdef AFS_DARWIN80_ENV
++# ifdef AFS_DARWIN80_ENV
+ 			/* XXX vp = vnode_mount(vp)->mnt_vnodecovered; */
+ 			vp = 0;
+-#else
++# else
+ 			vp = vp->v_vfsp->vfs_vnodecovered;
+ 			if (vp) {	/* Ignore weird failures */
+-#ifdef AFS_SGI62_ENV
++#  ifdef AFS_SGI62_ENV
+ 			    attrs->va_nodeid = VnodeToIno(vp);
+-#else
++#  else
+ 			    struct inode *ip;
+ 
+ 			    ip = (struct inode *)VTOI(vp);
+ 			    if (ip)	/* Ignore weird failures */
+ 				attrs->va_nodeid = ip->i_number;
+-#endif
++#  endif /* AFS_SGI62_ENV */
+ 			}
+-#endif
++# endif /* AFS_DARWIN80_ENV */
+ 		    }
+ #endif /* AFS_LINUX22_ENV */
+ 		}
+@@ -360,20 +360,20 @@ afs_VAttrToAS(struct vcache *avc, struct vattr *av,
+     mask = 0;
+ 
+     AFS_STATCNT(afs_VAttrToAS);
+-#if     defined(AFS_DARWIN80_ENV)
++#if defined(AFS_DARWIN80_ENV)
+     if (VATTR_IS_ACTIVE(av, va_mode)) {
+-#elif	defined(AFS_AIX_ENV)
++#elif defined(AFS_AIX_ENV)
+ /* Boy, was this machine dependent bogosity hard to swallow????.... */
+     if (av->va_mode != -1) {
+-#elif	defined(AFS_LINUX22_ENV) || defined(UKERNEL)
++#elif defined(AFS_LINUX22_ENV) || defined(UKERNEL)
+     if (av->va_mask & ATTR_MODE) {
+-#elif	defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
++#elif defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
+     if (av->va_mask & AT_MODE) {
+-#elif	defined(AFS_XBSD_ENV)
++#elif defined(AFS_XBSD_ENV)
+     if (av->va_mode != (mode_t)VNOVAL) {
+ #else
+     if (av->va_mode != ((unsigned short)-1)) {
+-#endif
++#endif /* AFS_DARWIN80_ENV */
+ 	mask |= AFS_SETMODE;
+ 	as->UnixModeBits = av->va_mode & 0xffff;
+ 	if (avc->f.states & CForeign) {
+@@ -382,65 +382,65 @@ afs_VAttrToAS(struct vcache *avc, struct vattr *av,
+ 	    ReleaseWriteLock(&avc->lock);
+ 	}
+     }
+-#if     defined(AFS_DARWIN80_ENV)
++#if defined(AFS_DARWIN80_ENV)
+     if (VATTR_IS_ACTIVE(av, va_gid)) {
+ #elif defined(AFS_LINUX22_ENV) || defined(UKERNEL)
+     if (av->va_mask & ATTR_GID) {
+ #elif defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
+     if (av->va_mask & AT_GID) {
+ #elif defined(AFS_HPUX_ENV)
+-#if	defined(AFS_HPUX102_ENV)
++# if defined(AFS_HPUX102_ENV)
+     if (av->va_gid != GID_NO_CHANGE) {
+-#else
++# else
+     if (av->va_gid != ((unsigned short)-1)) {
+-#endif
+-#elif	defined(AFS_XBSD_ENV)
++# endif /* AFS_HPUX102_ENV */
++#elif defined(AFS_XBSD_ENV)
+     if (av->va_gid != (gid_t)VNOVAL) {
+ #else
+     if (av->va_gid != -1) {
+-#endif /* AFS_LINUX22_ENV */
++#endif /* AFS_DARWIN80_ENV */
+ 	mask |= AFS_SETGROUP;
+ 	as->Group = av->va_gid;
+     }
+-#if     defined(AFS_DARWIN80_ENV)
++#if defined(AFS_DARWIN80_ENV)
+     if (VATTR_IS_ACTIVE(av, va_uid)) {
+ #elif defined(AFS_LINUX22_ENV) || defined(UKERNEL)
+     if (av->va_mask & ATTR_UID) {
+ #elif defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
+     if (av->va_mask & AT_UID) {
+ #elif defined(AFS_HPUX_ENV)
+-#if	defined(AFS_HPUX102_ENV)
++# if defined(AFS_HPUX102_ENV)
+     if (av->va_uid != UID_NO_CHANGE) {
+-#else
++# else
+     if (av->va_uid != ((unsigned short)-1)) {
+-#endif
+-#elif	defined(AFS_XBSD_ENV)
++# endif
++#elif defined(AFS_XBSD_ENV)
+     if (av->va_uid != (uid_t)VNOVAL) {
+ #else
+     if (av->va_uid != -1) {
+-#endif /* AFS_LINUX22_ENV */
++#endif /* AFS_DARWIN80_ENV */
+ 	mask |= AFS_SETOWNER;
+ 	as->Owner = av->va_uid;
+     }
+-#if     defined(AFS_DARWIN80_ENV)
++#if defined(AFS_DARWIN80_ENV)
+     if (VATTR_IS_ACTIVE(av, va_modify_time)) {
+-#elif	defined(AFS_LINUX22_ENV) || defined(UKERNEL)
++#elif defined(AFS_LINUX22_ENV) || defined(UKERNEL)
+     if (av->va_mask & ATTR_MTIME) {
+-#elif	defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
++#elif defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
+     if (av->va_mask & AT_MTIME) {
+ #else
+     if (av->va_mtime.tv_sec != -1) {
+-#endif
++#endif /* AFS_DARWIN80_ENV */
+ 	mask |= AFS_SETMODTIME;
+ #ifndef	AFS_SGI_ENV
+-#if	defined(AFS_SUN5_ENV) || defined(AFS_AIX41_ENV) || defined(AFS_DARWIN_ENV) || defined(AFS_XBSD_ENV) || defined(AFS_LINUX26_ENV)
++# if defined(AFS_SUN5_ENV) || defined(AFS_AIX41_ENV) || defined(AFS_DARWIN_ENV) || defined(AFS_XBSD_ENV) || defined(AFS_LINUX26_ENV)
+ 	if (av->va_mtime.tv_nsec == -1)
+-#else
++# else
+ 	if (av->va_mtime.tv_usec == -1)
+-#endif
++# endif
+ 	    as->ClientModTime = osi_Time();	/* special Sys V compat hack for Suns */
+ 	else
+-#endif
++#endif /* !AFS_SGI_ENV */
+ 	    as->ClientModTime = av->va_mtime.tv_sec;
+     }
+     as->Mask = mask;
+@@ -508,19 +508,19 @@ afs_setattr(OSI_VC_DECL(avc), struct vattr *attrs,
+      * chmod) give it a shot; if it fails, we'll discard the status
+      * info.
+      */
+-#if	defined(AFS_DARWIN80_ENV)
++#if defined(AFS_DARWIN80_ENV)
+     if (VATTR_IS_ACTIVE(attrs, va_data_size)) {
+-#elif	defined(AFS_LINUX22_ENV) || defined(UKERNEL)
++#elif defined(AFS_LINUX22_ENV) || defined(UKERNEL)
+     if (attrs->va_mask & ATTR_SIZE) {
+-#elif	defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
++#elif defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
+     if (attrs->va_mask & AT_SIZE) {
+-#elif	defined(AFS_XBSD_ENV)
++#elif defined(AFS_XBSD_ENV)
+     if (attrs->va_size != VNOVAL) {
+-#elif	defined(AFS_AIX41_ENV)
++#elif defined(AFS_AIX41_ENV)
+     if (attrs->va_size != -1) {
+ #else
+     if (attrs->va_size != ~0) {
+-#endif
++#endif /* AFS_DARWIN80_ENV */
+ 	if (!afs_AccessOK(avc, PRSFS_WRITE, treq, DONT_CHECK_MODE_BITS)) {
+ 	    code = EACCES;
+ 	    goto done;
+@@ -528,13 +528,13 @@ afs_setattr(OSI_VC_DECL(avc), struct vattr *attrs,
+     }
+ 
+     if (AFS_IS_DISCONNECTED && !AFS_IS_DISCON_RW) {
+-        code = ENETDOWN;
+-        goto done;
++	code = ENETDOWN;
++	goto done;
+     }
+ 
+     afs_VAttrToAS(avc, attrs, &astat);	/* interpret request */
+     code = 0;
+-#if	defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
++#if defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
+     if (AFS_NFSXLATORREQ(acred)) {
+ 	avc->execsOrWriters++;
+     }
+@@ -543,26 +543,26 @@ afs_setattr(OSI_VC_DECL(avc), struct vattr *attrs,
+ #if defined(AFS_SGI_ENV)
+     AFS_RWLOCK((vnode_t *) avc, VRWLOCK_WRITE);
+ #endif
+-#if	defined(AFS_DARWIN80_ENV)
++#if defined(AFS_DARWIN80_ENV)
+     if (VATTR_IS_ACTIVE(attrs, va_data_size)) {
+-#elif	defined(AFS_LINUX22_ENV) || defined(UKERNEL)
++#elif defined(AFS_LINUX22_ENV) || defined(UKERNEL)
+     if (attrs->va_mask & ATTR_SIZE) {
+-#elif	defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
++#elif defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
+     if (attrs->va_mask & AT_SIZE) {
+-#elif	defined(AFS_XBSD_ENV)
++#elif defined(AFS_XBSD_ENV)
+     if (attrs->va_size != VNOVAL) {
+-#elif	defined(AFS_AIX41_ENV)
++#elif defined(AFS_AIX41_ENV)
+     if (attrs->va_size != -1) {
+ #else
+     if (attrs->va_size != ~0) {
+-#endif
++#endif /* AFS_DARWIN80_ENV */
+ 	afs_size_t tsize = attrs->va_size;
+ 	ObtainWriteLock(&avc->lock, 128);
+ 	avc->f.states |= CDirty;
+ 
+-        if (AFS_IS_DISCONNECTED && tsize >=avc->f.m.Length) {
++	if (AFS_IS_DISCONNECTED && tsize >=avc->f.m.Length) {
+ 	    /* If we're growing the file, and we're disconnected, we need
+- 	     * to make the relevant dcache chunks appear ourselves. */
++	     * to make the relevant dcache chunks appear ourselves. */
+ 	    code = afs_ExtendSegments(avc, tsize, treq);
+ 	} else {
+ 	    code = afs_TruncateAllSegments(avc, tsize, treq, acred);
+@@ -573,9 +573,9 @@ afs_setattr(OSI_VC_DECL(avc), struct vattr *attrs,
+ 	 * pdflush */
+ 	if (code == 0)
+ 	    i_size_write(AFSTOV(avc), tsize);
+-#endif
++#endif /* AFS_LINUX26_ENV */
+ #if defined(AFS_FBSD_ENV) || defined(AFS_DFBSD_ENV)
+-        vnode_pager_setsize(vp, (u_long) tsize);
++	vnode_pager_setsize(vp, (u_long) tsize);
+ #endif
+ 	/* if date not explicitly set by this call, set it ourselves, since we
+ 	 * changed the data */
+@@ -593,7 +593,7 @@ afs_setattr(OSI_VC_DECL(avc), struct vattr *attrs,
+ 		if (!AFS_IS_DISCONNECTED) {
+ 			code = afs_StoreAllSegments(avc, treq, AFS_ASYNC);
+ 			if (!code)
+-		    		avc->f.states &= ~CDirty;
++			    avc->f.states &= ~CDirty;
+ 		}
+ 	    }
+ 	} else
+@@ -603,17 +603,17 @@ afs_setattr(OSI_VC_DECL(avc), struct vattr *attrs,
+ 	hzero(avc->flushDV);
+ 	osi_FlushText(avc);	/* do this after releasing all locks */
+     }
+-    
++
+     if (!AFS_IS_DISCONNECTED) {
+-        if (code == 0) {
++	if (code == 0) {
+ 	    ObtainSharedLock(&avc->lock, 16);	/* lock entry */
+ 	    code = afs_WriteVCache(avc, &astat, treq);	/* send request */
+ 	    ReleaseSharedLock(&avc->lock);	/* release lock */
+-        }
+-        if (code) {
++	}
++	if (code) {
+ 	    /* error?  erase any changes we made to vcache entry */
+ 	    afs_StaleVCache(avc);
+-        }
++	}
+     } else {
+ 	ObtainSharedLock(&avc->lock, 712);
+ 	/* Write changes locally. */
+@@ -621,7 +621,7 @@ afs_setattr(OSI_VC_DECL(avc), struct vattr *attrs,
+ 	ReleaseSharedLock(&avc->lock);
+     }		/* if (!AFS_IS_DISCONNECTED) */
+ 
+-#if	defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
++#if defined(AFS_SUN5_ENV) || defined(AFS_SGI_ENV)
+     if (AFS_NFSXLATORREQ(acred)) {
+ 	avc->execsOrWriters--;
+     }
+diff --git a/src/afs/afs_init.c b/src/afs/afs_init.c
+index 62745316b..21b1ea4ea 100644
+--- a/src/afs/afs_init.c
++++ b/src/afs/afs_init.c
+@@ -23,7 +23,7 @@
+ #include "afs/afs_stats.h"	/* afs statistics */
+ #include "rx/rxstat.h"
+ #if defined(AFS_LINUX26_ENV) && defined(STRUCT_TASK_STRUCT_HAS_CRED)
+-#include <linux/cred.h>
++# include <linux/cred.h>
+ #endif
+ 
+ #define FSINT_COMMON_XG
+@@ -155,7 +155,7 @@ afs_CacheInit(afs_int32 astatSize, afs_int32 afiles, afs_int32 ablocks,
+     afs_vcacheInit(astatSize);
+     code = afs_dcacheInit(afiles, ablocks, aDentries, achunk, aflags);
+     if (code) {
+-        return code;
++	return code;
+     }
+ #if defined(AFS_LINUX26_ENV) && defined(STRUCT_TASK_STRUCT_HAS_CRED)
+     /*
+@@ -168,9 +168,9 @@ afs_CacheInit(afs_int32 astatSize, afs_int32 afiles, afs_int32 ablocks,
+     cache_creds = get_current_cred();
+ #endif
+ #ifdef AFS_64BIT_CLIENT
+-#ifdef AFS_VM_RDWR_ENV
++# ifdef AFS_VM_RDWR_ENV
+     afs_vmMappingEnd = AFS_CHUNKBASE(0x7fffffff);
+-#endif /* AFS_VM_RDWR_ENV */
++# endif
+ #endif /* AFS_64BIT_CLIENT */
+ 
+ #if defined(AFS_AIX_ENV) && !defined(AFS_AIX51_ENV)
+@@ -260,22 +260,22 @@ afs_LookupInodeByPath(char *filename, afs_ufs_dcache_id_t *inode,
+ 	return code;
+     osi_get_fh(dp, inode);
+     dput(dp);
+-#else
++#else /* AFS_LINUX22_ENV */
+     struct vnode *filevp;
+     code = gop_lookupname(filename, AFS_UIOSYS, 0, &filevp);
+     if (code)
+ 	return code;
+-#ifdef AFS_CACHE_VNODE_PATH
++# ifdef AFS_CACHE_VNODE_PATH
+     *inode = afs_strdup(filename);
+-#else
++# else
+     *inode = afs_vnodeToInumber(filevp);
+-#endif
++# endif
+     if (fvpp)
+ 	*fvpp = filevp;
+     else {
+ 	AFS_RELE(filevp);
+     }
+-#endif
++#endif /* AFS_LINUX22_ENV */
+ 
+     return 0;
+ }
+@@ -330,7 +330,7 @@ afs_InitVolumeInfo(char *afile)
+     code = afs_LookupInodeByPath(afile, &volumeInode.ufs, &volumeVnode);
+ #else
+     code = afs_LookupInodeByPath(afile, &volumeInode.ufs, NULL);
+-#endif
++#endif /* AFS_XBSD_ENV */
+     if (code)
+ 	return code;
+     tfile = afs_CFileOpen(&volumeInode);
+@@ -400,30 +400,30 @@ afs_InitCacheInfo(char *afile)
+     if (code || !filevp)
+ 	return ENOENT;
+     {
+-#if	defined(AFS_SUN5_ENV)
++# if defined(AFS_SUN5_ENV)
+ 	struct statvfs64 st;
+-#elif	defined(AFS_HPUX102_ENV)
++# elif defined(AFS_HPUX102_ENV)
+ 	struct k_statvfs st;
+-#elif	defined(AFS_SGI_ENV) || defined(AFS_HPUX100_ENV) || defined(AFS_NBSD40_ENV)
++# elif defined(AFS_SGI_ENV) || defined(AFS_HPUX100_ENV) || defined(AFS_NBSD40_ENV)
+ 	struct statvfs st;
+-#elif defined(AFS_DARWIN80_ENV)
++# elif defined(AFS_DARWIN80_ENV)
+ 	struct vfsstatfs st;
+-#else
++# else
+ 	struct statfs st;
+-#endif /* SUN5 */
++# endif /* AFS_SUN5_ENV */
+ 
+-#if	defined(AFS_SGI_ENV)
+-#ifdef AFS_SGI65_ENV
++# if defined(AFS_SGI_ENV)
++#  ifdef AFS_SGI65_ENV
+ 	VFS_STATVFS(filevp->v_vfsp, &st, NULL, code);
+ 	if (!code)
+-#else
++#  else
+ 	if (!VFS_STATFS(filevp->v_vfsp, &st, NULL))
+-#endif /* AFS_SGI65_ENV */
+-#elif	defined(AFS_SUN5_ENV) || defined(AFS_HPUX100_ENV)
++#  endif /* AFS_SGI65_ENV */
++# elif defined(AFS_SUN5_ENV) || defined(AFS_HPUX100_ENV)
+ 	if (!VFS_STATVFS(filevp->v_vfsp, &st))
+-#elif defined(AFS_AIX41_ENV)
++# elif defined(AFS_AIX41_ENV)
+ 	if (!VFS_STATFS(filevp->v_vfsp, &st, &afs_osi_cred))
+-#elif defined(AFS_LINUX20_ENV)
++# elif defined(AFS_LINUX20_ENV)
+ 	{
+ 	    KERNEL_SPACE_DECL;
+ 	    TO_USER_SPACE();
+@@ -431,19 +431,19 @@ afs_InitCacheInfo(char *afile)
+ 	    VFS_STATFS(filevp->v_vfsp, &st);
+ 	    TO_KERNEL_SPACE();
+ 	}
+-#elif defined(AFS_DARWIN80_ENV)
+-        afs_cacheVfsp = vnode_mount(filevp);
++# elif defined(AFS_DARWIN80_ENV)
++	afs_cacheVfsp = vnode_mount(filevp);
+ 	if (afs_cacheVfsp && ((st = *(vfs_statfs(afs_cacheVfsp))),1))
+-#elif defined(AFS_FBSD_ENV)
++# elif defined(AFS_FBSD_ENV)
+ 	if (!VFS_STATFS(filevp->v_mount, &st))
+-#elif defined(AFS_NBSD50_ENV)
++# elif defined(AFS_NBSD50_ENV)
+ 	if (!VFS_STATVFS(filevp->v_vfsp, &st))
+-#elif defined(AFS_DARWIN_ENV) || defined(AFS_XBSD_ENV)
++# elif defined(AFS_DARWIN_ENV) || defined(AFS_XBSD_ENV)
+ 	if (!VFS_STATFS(filevp->v_mount, &st, osi_curproc()))
+-#else
++# else
+ 	if (!VFS_STATFS(filevp->v_vfsp, &st))
+-#endif /* SGI... */
+-#if	defined(AFS_SUN5_ENV) || defined(AFS_HPUX100_ENV)
++# endif /* AFS_SGI_ENV */
++# if defined(AFS_SUN5_ENV) || defined(AFS_HPUX100_ENV)
+ 	    if (strcmp("zfs", st.f_basetype) == 0) {
+ 		/*
+ 		 * Files in ZFS can take up to around the next
+@@ -455,35 +455,35 @@ afs_InitCacheInfo(char *afile)
+ 	    } else {
+ 		afs_fsfragsize = st.f_frsize - 1;
+ 	    }
+-#else
++# else
+ 	    afs_fsfragsize = st.f_bsize - 1;
+-#endif
++# endif /* AFS_SUN5_ENV || AFS_HPUX100_ENV */
+     }
+-#if defined(AFS_LINUX20_ENV)
++# if defined(AFS_LINUX20_ENV)
+     cacheInode.ufs = filevp->i_ino;
+     afs_cacheSBp = filevp->i_sb;
+-#elif defined(AFS_XBSD_ENV)
++# elif defined(AFS_XBSD_ENV)
+     cacheInode.ufs = VTOI(filevp)->i_number;
+     cacheDev.mp = filevp->v_mount;
+     cacheDev.held_vnode = filevp;
+     vref(filevp);		/* Make sure mount point stays busy. XXX */
+-#if !defined(AFS_OBSD_ENV)
++#  if !defined(AFS_OBSD_ENV)
+     afs_cacheVfsp = filevp->v_vfsp;
+-#endif
+-#else
+-#if defined(AFS_HAVE_VXFS) || defined(AFS_DARWIN_ENV)
++#  endif
++# else
++#  if defined(AFS_HAVE_VXFS) || defined(AFS_DARWIN_ENV)
+     afs_InitDualFSCacheOps(filevp);
+-#endif
+-#ifndef AFS_CACHE_VNODE_PATH
+-#ifndef AFS_DARWIN80_ENV
++#  endif
++#  ifndef AFS_CACHE_VNODE_PATH
++#   ifndef AFS_DARWIN80_ENV
+     afs_cacheVfsp = filevp->v_vfsp;
+-#endif
++#   endif
+     cacheInode.ufs = afs_vnodeToInumber(filevp);
+-#else
++#  else
+     afs_LookupInodeByPath(afile, &cacheInode.ufs, NULL);
+-#endif
++#  endif /* !AFS_CACHE_VNODE_PATH */
+     cacheDev.dev = afs_vnodeToDev(filevp);
+-#endif /* AFS_LINUX20_ENV */
++# endif /* AFS_LINUX20_ENV */
+     AFS_RELE(filevp);
+ #endif /* AFS_LINUX22_ENV */
+     if (afs_fsfragsize < AFS_MIN_FRAGSIZE) {
+@@ -622,9 +622,9 @@ afs_procsize_init(void)
+ {
+     afs_proc_t *p0;		/* pointer to process 0 */
+     afs_proc_t *pN;		/* pointer to process 0's first child */
+-#ifdef AFS_AIX51_ENV
++# ifdef AFS_AIX51_ENV
+     struct pvproc *pV;
+-#endif
++# endif
+     int pN_index;
+     ptrdiff_t pN_offset;
+     int procsize;
+@@ -634,7 +634,7 @@ afs_procsize_init(void)
+ 	afs_gcpags = AFS_GCPAGS_EPROC0;
+ 	return;
+     }
+-#ifdef AFS_AIX51_ENV
++# ifdef AFS_AIX51_ENV
+     pN = NULL;
+     pV = p0->p_pvprocp;
+     if (pV) {
+@@ -642,9 +642,9 @@ afs_procsize_init(void)
+ 	if (pV)
+ 	    pN = pV->pv_procp;
+     }
+-#else
++# else
+     pN = p0->p_child;
+-#endif
++# endif /* AFS_AIX51_ENV */
+     if (!pN) {
+ 	afs_gcpags = AFS_GCPAGS_EPROCN;
+ 	return;
+@@ -681,7 +681,7 @@ afs_procsize_init(void)
+ 
+     afs_gcpags_procsize = procsize;
+ }
+-#endif
++#endif /* AFS_AIX_ENV && !AFS_AIX51_ENV */
+ 
+ /*
+  * shutdown_cache
+@@ -719,13 +719,13 @@ shutdown_cache(void)
+ 	    vrele(cacheDev.held_vnode);
+ 	    cacheDev.held_vnode = NULL;
+ 	}
+-#endif
++#endif /* AFS_XBSD_ENV */
+ #ifdef AFS_CACHE_VNODE_PATH
+ 	if (cacheDiskType != AFS_FCACHE_TYPE_MEM) {
+ 	    afs_osi_FreeStr(cacheInode.ufs);
+ 	    afs_osi_FreeStr(volumeInode.ufs);
+ 	}
+-#endif
++#endif /* AFS_CACHE_VODE_PATH */
+ 	afs_reset_inode(&cacheInode);
+ 	afs_reset_inode(&volumeInode);
+ 	cacheInfoModTime = 0;
+@@ -763,16 +763,16 @@ shutdown_server(void)
+     for (i = 0; i < NSERVERS; i++) {
+ 	struct server *ts, *next;
+ 
+-        ts = afs_servers[i];
+-        while(ts) {
++	ts = afs_servers[i];
++	while(ts) {
+ 	    next = ts->next;
+ 	    for (sa = ts->addr; sa; sa = sa->next_sa) {
+ 		if (sa->conns) {
+-                    /* afs_ReleaseConns has been updated to
+-                     * defer rx_DestroyConnection to Rx
+-                     * shutdown, as most recently was done
+-                     * here */
+-                    afs_ReleaseConns(sa->conns);
++		    /* afs_ReleaseConns has been updated to
++		     * defer rx_DestroyConnection to Rx
++		     * shutdown, as most recently was done
++		     * here */
++		    afs_ReleaseConns(sa->conns);
+ 		}
+ 	    }
+ 	    for (tcbrp = ts->cbrs; tcbrp; tcbrp = tbrp) {
+@@ -784,18 +784,18 @@ shutdown_server(void)
+ 	    }
+ 	    afs_osi_Free(ts, sizeof(struct server));
+ 	    ts = next;
+-        }
++	}
+     }
+ 
+     for (i = 0; i < NSERVERS; i++) {
+ 	struct srvAddr *sa, *next;
+ 
+-        sa = afs_srvAddrs[i];
+-        while(sa) {
++	sa = afs_srvAddrs[i];
++	while(sa) {
+ 	    next = sa->next_bkt;
+ 	    afs_osi_Free(sa, sizeof(struct srvAddr));
+ 	    sa = next;
+-        }
++	}
+     }
+ }
+ 
+diff --git a/src/afs/afs_vcache.c b/src/afs/afs_vcache.c
+index a97559730..7e3a778ab 100644
+--- a/src/afs/afs_vcache.c
++++ b/src/afs/afs_vcache.c
+@@ -889,6 +889,9 @@ afs_AllocVCache(void)
+     struct vcache *tvc;
+ 
+     tvc = osi_NewVnode();
++    if (tvc == NULL) {
++	return NULL;
++    }
+ 
+     afs_vcount++;
+ 
+@@ -1022,6 +1025,9 @@ afs_NewVCache_int(struct VenusFid *afid, struct server *serverp, int seq)
+ 	}
+     }
+     tvc = afs_AllocVCache();
++    if (tvc == NULL) {
++	return NULL;
++    }
+ #else /* AFS_LINUX22_ENV */
+     /* pull out a free cache entry */
+     if (!freeVCList) {
+@@ -1030,6 +1036,9 @@ afs_NewVCache_int(struct VenusFid *afid, struct server *serverp, int seq)
+ 
+     if (!freeVCList) {
+ 	tvc = afs_AllocVCache();
++	if (tvc == NULL) {
++	    return NULL;
++	}
+     } else {
+ 	tvc = freeVCList;	/* take from free list */
+ 	freeVCList = tvc->nextfree;
+diff --git a/src/afs/afsincludes.h b/src/afs/afsincludes.h
+index dd9284aa9..3d0286e9d 100644
+--- a/src/afs/afsincludes.h
++++ b/src/afs/afsincludes.h
+@@ -13,52 +13,50 @@
+ #include <afsconfig.h>
+ 
+ #ifdef UKERNEL
+-#include <UKERNEL/afsincludes.h>
++# include <UKERNEL/afsincludes.h>
+ #else
+ 
+-
+ /* AFS based headers */
+-#include "afs/stds.h"
+-#ifdef	AFS_AIX_ENV
+-#include "osi_vfs.h"
+-#elif defined(AFS_HPUX_ENV) || defined(AFS_NBSD_ENV)
+-#include "osi_vfs.h"
+-#endif
+-#if defined(AFS_SGI_ENV) || defined(AFS_LINUX20_ENV)
+-#include "osi_vfs.h"
+-#endif
+-#include "rx/rx.h"
+-#include "afs/afs_osi.h"
+-#include "afs/lock.h"
+-#include "afs/volerrors.h"
+-#include "afs/voldefs.h"
+-#ifdef AFS_LINUX20_ENV
+-#ifdef TRUE
+-#undef TRUE
+-#undef FALSE
+-#endif
+-#endif
+-#ifdef AFS_LINUX20_ENV
+-#undef __NFDBITS
+-#undef __FDMASK
+-#endif
+-#include "afsint.h"
+-#include "afs/exporter.h"
+-#include "vldbint.h"
+-#include "afs/afs.h"
+-#include "afs/afs_chunkops.h"
+-/*#include "afs/auxinode.h"	-- used only in afs_istuff.c */
+-#include "rx/rxkad.h"
+-#include "afs/prs_fs.h"
+-#include "afs/dir.h"
+-#include "afs/afs_axscache.h"
+-#include "afs/icl.h"
+-#include "afs/afs_stats.h"
+-#include "afs/afs_prototypes.h"
+-#include "afs/discon.h"
+-#if defined(AFS_LINUX20_ENV) || defined(AFS_DARWIN_ENV) || defined(AFS_FBSD_ENV)
+-#include "osi_machdep.h"
+-#endif
++# include "afs/stds.h"
++# ifdef	AFS_AIX_ENV
++#  include "osi_vfs.h"
++# elif defined(AFS_HPUX_ENV) || defined(AFS_NBSD_ENV)
++#  include "osi_vfs.h"
++# endif
++# if defined(AFS_SGI_ENV) || defined(AFS_LINUX20_ENV)
++#  include "osi_vfs.h"
++# endif
++# include "rx/rx.h"
++# include "afs/afs_osi.h"
++# include "afs/lock.h"
++# include "afs/volerrors.h"
++# include "afs/voldefs.h"
++# ifdef AFS_LINUX20_ENV
++#  ifdef TRUE
++#   undef TRUE
++#   undef FALSE
++#  endif
++# endif
++# ifdef AFS_LINUX20_ENV
++#  undef __NFDBITS
++#  undef __FDMASK
++# endif
++# include "afsint.h"
++# include "afs/exporter.h"
++# include "vldbint.h"
++# include "afs/afs.h"
++# include "afs/afs_chunkops.h"
++# include "rx/rxkad.h"
++# include "afs/prs_fs.h"
++# include "afs/dir.h"
++# include "afs/afs_axscache.h"
++# include "afs/icl.h"
++# include "afs/afs_stats.h"
++# include "afs/afs_prototypes.h"
++# include "afs/discon.h"
++# if defined(AFS_LINUX20_ENV) || defined(AFS_DARWIN_ENV) || defined(AFS_FBSD_ENV)
++#  include "osi_machdep.h"
++# endif
+ 
+ #endif
+ 
+diff --git a/src/afs/sysincludes.h b/src/afs/sysincludes.h
+index a1c14e126..1f281c5d3 100644
+--- a/src/afs/sysincludes.h
++++ b/src/afs/sysincludes.h
+@@ -182,12 +182,6 @@ struct xfs_inode_info {
+ # endif
+ 
+ #else /* AFS_LINUX22_ENV */
+-# if defined(AFS_DARWIN_ENV)
+-#  ifndef _MACH_ETAP_H_
+-#   define _MACH_ETAP_H_
+-typedef unsigned short etap_event_t;
+-#  endif
+-# endif
+ 
+ # include "h/errno.h"
+ # include "h/types.h"
+diff --git a/src/rx/rx_atomic.h b/src/rx/rx_atomic.h
+index df050e2ef..72ee054d4 100644
+--- a/src/rx/rx_atomic.h
++++ b/src/rx/rx_atomic.h
+@@ -77,34 +77,6 @@ rx_atomic_sub(rx_atomic_t *atomic, int change) {
+     InterlockedExchangeAdd(&atomic->var, 0 - change);
+ }
+ 
+-static_inline int
+-rx_atomic_test_bit(rx_atomic_t *atomic, int bit) {
+-    return ((unsigned int) rx_atomic_read(atomic) & 1<<bit) != 0;
+-}
+-
+-/* No InterlockedOr or InterlockedAnd on ix86, so just use the
+- * BitTest functions */
+-
+-static_inline void
+-rx_atomic_set_bit(rx_atomic_t *atomic, int bit) {
+-    (void) InterlockedBitTestAndSet(&atomic->var, bit);
+-}
+-
+-static_inline void
+-rx_atomic_clear_bit(rx_atomic_t *atomic, int bit) {
+-    (void) InterlockedBitTestAndReset(&atomic->var, bit);
+-}
+-
+-static_inline int
+-rx_atomic_test_and_set_bit(rx_atomic_t *atomic, int bit) {
+-    return InterlockedBitTestAndSet(&atomic->var, bit);
+-}
+-
+-static_inline int
+-rx_atomic_test_and_clear_bit(rx_atomic_t *atomic, int bit) {
+-    return InterlockedBitTestAndReset(&atomic->var, bit);
+-}
+-
+ #elif defined(AFS_AIX61_ENV) || defined(AFS_USR_AIX61_ENV)
+ #include <sys/atomic_op.h>
+ 
+@@ -157,31 +129,6 @@ rx_atomic_sub(rx_atomic_t *atomic, int change) {
+     fetch_and_add(&atomic->var, -change);
+ }
+ 
+-static_inline int
+-rx_atomic_test_bit(rx_atomic_t *atomic, int bit) {
+-    return ((unsigned int) rx_atomic_read(atomic) & 1<<bit) != 0;
+-}
+-
+-static_inline void
+-rx_atomic_set_bit(rx_atomic_t *atomic, int bit) {
+-    fetch_and_or(&atomic->var, 1<<bit);
+-}
+-
+-static_inline void
+-rx_atomic_clear_bit(rx_atomic_t *atomic, int bit) {
+-    fetch_and_and(&atomic->var, ~(1<<bit));
+-}
+-
+-static_inline int
+-rx_atomic_test_and_set_bit(rx_atomic_t *atomic, int bit) {
+-    return (fetch_and_or(&atomic->var, (1<<bit)) & 1<<bit) != 0;
+-}
+-
+-static_inline int
+-rx_atomic_test_and_clear_bit(rx_atomic_t *atomic, int bit) {
+-    return (fetch_and_and(&atomic->var, ~(1<<bit)) & 1<<bit) != 0;
+-}
+-
+ #elif defined(AFS_DARWIN80_ENV) || defined(AFS_USR_DARWIN80_ENV)
+ 
+ # if (defined(AFS_DARWIN160_ENV) || defined(AFS_USR_DARWIN160_ENV)) && !defined(KERNEL)
+@@ -209,19 +156,6 @@ OSAtomicDecrement32(volatile int *value)
+     return OSDecrementAtomic(value) - 1;
+ }
+ 
+-static_inline unsigned int
+-OSAtomicOr32(unsigned int mask, volatile unsigned int *value)
+-{
+-    return OSBitOrAtomic(mask, value) | mask;
+-}
+-
+-static_inline unsigned int
+-OSAtomicAnd32(unsigned int mask, volatile unsigned int *value)
+-{
+-    return OSBitAndAtomic(mask, value) & mask;
+-}
+-#define OSAtomicOr32Orig  OSBitOrAtomic
+-#define OSAtomicAnd32Orig OSBitAndAtomic
+ # endif
+ 
+ typedef struct {
+@@ -272,35 +206,6 @@ static_inline void
+ rx_atomic_sub(rx_atomic_t *atomic, int change) {
+     OSAtomicAdd32(0 - change, &atomic->var);
+ }
+-
+-static_inline int
+-rx_atomic_test_bit(rx_atomic_t *atomic, int bit) {
+-    return ((unsigned int) rx_atomic_read(atomic) & 1<<bit) != 0;
+-}
+-
+-static_inline void
+-rx_atomic_set_bit(rx_atomic_t *atomic, int bit) {
+-    OSAtomicOr32(1<<bit, (volatile uint32_t *)&atomic->var);
+-}
+-
+-static_inline void
+-rx_atomic_clear_bit(rx_atomic_t *atomic, int bit) {
+-    OSAtomicAnd32(~(1<<bit), (volatile uint32_t *)&atomic->var);
+-}
+-
+-static_inline int
+-rx_atomic_test_and_set_bit(rx_atomic_t *atomic, int bit) {
+-    return ((OSAtomicOr32Orig(1<<bit, (volatile uint32_t *)&atomic->var) & 1<<bit)
+-	        != 0);
+-}
+-
+-static_inline int
+-rx_atomic_test_and_clear_bit(rx_atomic_t *atomic, int bit) {
+-    return ((OSAtomicAnd32Orig(~(1<<bit),
+-			       (volatile uint32_t *)&atomic->var) & 1<<bit)
+-	    != 0);
+-}
+-
+ #elif defined(AFS_LINUX26_ENV) && defined(KERNEL)
+ #include <asm/atomic.h>
+ 
+@@ -315,11 +220,6 @@ typedef atomic_t rx_atomic_t;
+ #define rx_atomic_dec(X)	  atomic_dec(X)
+ #define rx_atomic_dec_and_read(X) atomic_dec_return(X)
+ #define rx_atomic_sub(X, V)	  atomic_sub(V, X)
+-#define rx_atomic_test_bit(X, B)  test_bit(B, (unsigned long *) &(X)->counter)
+-#define rx_atomic_set_bit(X, B)   set_bit(B, (unsigned long *) &(X)->counter)
+-#define rx_atomic_clear_bit(X, B) clear_bit(B, (unsigned long *) &(X)->counter)
+-#define rx_atomic_test_and_set_bit(X, B)    test_and_set_bit(B, (unsigned long *) &(X)->counter)
+-#define rx_atomic_test_and_clear_bit(X, B)  test_and_clear_bit(B, (unsigned long *) &(X)->counter)
+ 
+ #elif defined(AFS_SUN510_ENV) || (defined(AFS_SUN5_ENV) && defined(KERNEL) && !defined(UKERNEL))
+ 
+@@ -385,31 +285,6 @@ rx_atomic_sub(rx_atomic_t *atomic, int change) {
+     atomic_add_32(&atomic->var, 0 - change);
+ }
+ 
+-static_inline int
+-rx_atomic_test_bit(rx_atomic_t *atomic, int bit) {
+-    return ((unsigned int) rx_atomic_read(atomic) & 1<<bit) != 0;
+-}
+-
+-static_inline void
+-rx_atomic_set_bit(rx_atomic_t *atomic, int bit) {
+-    atomic_or_32(&atomic->var, 1<<bit);
+-}
+-
+-static_inline void
+-rx_atomic_clear_bit(rx_atomic_t *atomic, int bit) {
+-    atomic_and_32(&atomic->var, ~(1<<bit));
+-}
+-
+-static_inline int
+-rx_atomic_test_and_set_bit(rx_atomic_t *atomic, int bit) {
+-    return (atomic_set_long_excl(&atomic->var, bit) == -1);
+-}
+-
+-static_inline int
+-rx_atomic_test_and_clear_bit(rx_atomic_t *atomic, int bit) {
+-    return (atomic_clear_long_excl(&atomic->var, bit) == 0);
+-}
+-
+ #elif defined(__GNUC__) && defined(HAVE_SYNC_FETCH_AND_ADD)
+ 
+ typedef struct {
+@@ -461,31 +336,6 @@ rx_atomic_sub(rx_atomic_t *atomic, int change) {
+     (void)__sync_fetch_and_sub(&atomic->var, change);
+ }
+ 
+-static_inline int
+-rx_atomic_test_bit(rx_atomic_t *atomic, int bit) {
+-    return ((unsigned int) rx_atomic_read(atomic) & 1<<bit) != 0;
+-}
+-
+-static_inline void
+-rx_atomic_set_bit(rx_atomic_t *atomic, int bit) {
+-    (void)__sync_fetch_and_or(&atomic->var, 1<<bit);
+-}
+-
+-static_inline void
+-rx_atomic_clear_bit(rx_atomic_t *atomic, int bit) {
+-    (void)__sync_fetch_and_and(&atomic->var, ~(1<<bit));
+-}
+-
+-static_inline int
+-rx_atomic_test_and_set_bit(rx_atomic_t *atomic, int bit) {
+-    return (__sync_fetch_and_or(&atomic->var, 1<<bit) & 1<<bit) != 0;
+-}
+-
+-static_inline int
+-rx_atomic_test_and_clear_bit(rx_atomic_t *atomic, int bit) {
+-    return (__sync_fetch_and_and(&atomic->var, ~(1<<bit)) & 1<<bit) != 0;
+-}
+-
+ #else
+ 
+ /* If we're on a platform where we have no idea how to do atomics,
+@@ -580,48 +430,6 @@ rx_atomic_sub(rx_atomic_t *atomic, int change) {
+     MUTEX_EXIT(&rx_atomic_mutex);
+ }
+ 
+-static_inline int
+-rx_atomic_test_bit(rx_atomic_t *atomic, int bit) {
+-    return ((unsigned int) rx_atomic_read(atomic) & 1<<bit) != 0;
+-}
+-
+-static_inline void
+-rx_atomic_set_bit(rx_atomic_t *atomic, int bit) {
+-    MUTEX_ENTER(&rx_atomic_mutex);
+-    atomic->var |= (1<<bit);
+-    MUTEX_EXIT(&rx_atomic_mutex);
+-}
+-
+-static_inline void
+-rx_atomic_clear_bit(rx_atomic_t *atomic, int bit) {
+-    MUTEX_ENTER(&rx_atomic_mutex);
+-    atomic->var &= ~(1<<bit);
+-    MUTEX_EXIT(&rx_atomic_mutex);
+-}
+-
+-static_inline int
+-rx_atomic_test_and_set_bit(rx_atomic_t *atomic, int bit) {
+-    int val;
+-
+-    MUTEX_ENTER(&rx_atomic_mutex);
+-    val = atomic->var;
+-    atomic->var |= 1<<bit;
+-    MUTEX_EXIT(&rx_atomic_mutex);
+-
+-    return (val & 1<<bit) == 1<<bit;
+-}
+-
+-static_inline int
+-rx_atomic_test_and_clear_bit(rx_atomic_t *atomic, int bit) {
+-    int val;
+-
+-    MUTEX_ENTER(&rx_atomic_mutex);
+-    val = atomic->var;
+-    atomic->var &= ~(1<<bit);
+-    MUTEX_EXIT(&rx_atomic_mutex);
+-
+-    return (val & 1<<bit) == 1<<bit;
+-}
+ #endif
+ 
+ #endif
+diff --git a/src/rx/rx_kcommon.h b/src/rx/rx_kcommon.h
+index bf4a6d371..d4d423a7f 100644
+--- a/src/rx/rx_kcommon.h
++++ b/src/rx/rx_kcommon.h
+@@ -26,12 +26,6 @@ struct coda_inode_info {
+ };
+ #endif
+ #endif
+-#ifdef AFS_DARWIN_ENV
+-#ifndef _MACH_ETAP_H_
+-#define _MACH_ETAP_H_
+-typedef unsigned short etap_event_t;
+-#endif
+-#endif
+ 
+ 
+ #include "h/types.h"
+-- 
+2.37.1
+
