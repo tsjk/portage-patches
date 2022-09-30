@@ -1,0 +1,14 @@
+--- ./cmd/zed/agents/zfs_retire.c.orig	2022-06-22 18:55:53.734318816 +0200
++++ ./cmd/zed/agents/zfs_retire.c	2022-09-30 13:10:00.262999665 +0200
+@@ -502,11 +502,6 @@
+ 			    fault_device ? "fault" : "degrade", vdev_guid,
+ 			    zpool_get_name(zhp));
+ 
+-		/*
+-		 * Attempt to substitute a hot spare.
+-		 */
+-		(void) replace_with_spare(hdl, zhp, vdev);
+-
+ 		zpool_close(zhp);
+ 	}
+ 
