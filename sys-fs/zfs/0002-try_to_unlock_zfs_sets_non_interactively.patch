@@ -1,5 +1,5 @@
---- ./modules.d/90zfs/mount-zfs.sh.orig	2022-12-15 19:06:29.000000000 +0100
-+++ ./modules.d/90zfs/mount-zfs.sh	2022-12-17 09:48:41.071497870 +0100
+--- ./contrib/dracut/90zfs/mount-zfs.sh.in.orig	2022-12-15 19:06:29.000000000 +0100
++++ ./contrib/dracut/90zfs/mount-zfs.sh.in	2022-12-17 09:48:41.071497870 +0100
 @@ -102,10 +102,31 @@
  		# if the key needs to be loaded
  		if [ "$KEYSTATUS" = "unavailable" ]; then
