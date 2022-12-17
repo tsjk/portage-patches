@@ -1,0 +1,34 @@
+--- ./modules.d/90zfs/mount-zfs.sh.orig	2022-12-15 19:06:29.000000000 +0100
++++ ./modules.d/90zfs/mount-zfs.sh	2022-12-17 09:48:41.071497870 +0100
+@@ -102,10 +102,31 @@
+ 		# if the key needs to be loaded
+ 		if [ "$KEYSTATUS" = "unavailable" ]; then
+ 			# decrypt them
++			KEYLOCATION="$(zfs get -Ho value keylocation "${ENCRYPTIONROOT}")"
++			case "${KEYLOCATION%%://*}" in
++        			prompt)
+ 			ask_for_password \
+ 				5 \
+ 				"Encrypted ZFS password for ${ENCRYPTIONROOT}: " \
+ 				"zfs load-key '${ENCRYPTIONROOT}'"
++        				;;
++				file)
++					KEYFILE="${KEYLOCATION#file://}"
++					[ -r "${KEYFILE}" ] || udevadm settle
++					[ -r "${KEYFILE}" ] || {
++						info "ZFS: Waiting for key ${KEYFILE} for ${ENCRYPTIONROOT}..."
++						for _ in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do
++							sleep 0.5s
++							[ -r "${KEYFILE}" ] && break
++						done
++					}
++					[ -r "${KEYFILE}" ] || warn "ZFS: Key ${KEYFILE} for ${ENCRYPTIONROOT} hasn't appeared. Trying anyway..."
++					zfs load-key "${ENCRYPTIONROOT}"
++					;;
++				*)
++					zfs load-key "${ENCRYPTIONROOT}" || sleep 10s
++					;;
++			esac
+ 		fi
+ 	fi
+ fi
