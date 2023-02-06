@@ -1,0 +1,34 @@
+--- upower-v0.99.20/src/linux/up-device-supply.c.orig	2022-07-13 17:18:50.000000000 +0200
++++ upower-v0.99.20/src/linux/up-device-supply.c	2023-02-06 20:06:35.968504909 +0100
+@@ -977,6 +977,7 @@
+ 	const gchar *scope;
+ 	UpDeviceKind type;
+ 	gboolean is_power_supply;
++	gchar *model_name = NULL;
+ 
+ 	up_device_supply_reset_values (supply);
+ 
+@@ -1007,6 +1008,23 @@
+ 		return FALSE;
+ 	}
+ 
++	/* ignore some Logitech devices (use Solaar instead) */
++	model_name = up_device_supply_get_string (native_path, "model_name");
++	if (model_name != NULL) {
++		if (g_ascii_strcasecmp (model_name, "Logitech diNovo Edge") == 0) {
++			g_debug ("Ignoring Logitech diNovo Edge, as the battery reading is wrong");
++			return FALSE;
++		}
++		if (g_ascii_strcasecmp (model_name, "MX Keys Wireless Keyboard") == 0) {
++			g_debug ("Ignoring Logitech MX Keys Wireless Keyboard, as the battery warnings would set in way too early");
++			return FALSE;
++		}
++		if (g_ascii_strcasecmp (model_name, "MX Anywhere 3") == 0) {
++			g_debug ("Ignoring Logitech MX Anywhere 3, as the battery warnings would set in way too early");
++			return FALSE;
++		}
++	}
++
+ 	/* try to detect using the device type */
+ 	type = up_device_supply_guess_type (native, native_path);
+ 
