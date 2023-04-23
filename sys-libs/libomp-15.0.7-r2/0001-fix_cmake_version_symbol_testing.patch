@@ -1,0 +1,31 @@
+From c32022ad260aa1e6f485c5a6820fa9973f3b108e Mon Sep 17 00:00:00 2001
+From: Jonathan Peyton <jonathan.l.peyton@intel.com>
+Date: Thu, 2 Feb 2023 11:18:36 -0600
+Subject: [PATCH] [OpenMP][libomp] Fix CMake version symbol testing
+
+Do not check for version symbol support if the necessary linker flag is
+not supported.
+
+Differential Revision: https://reviews.llvm.org/D143200
+---
+ openmp/runtime/cmake/config-ix.cmake   | 6 +++++-
+ openmp/runtime/src/exports_test_so.txt | 4 ----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/openmp/runtime/cmake/config-ix.cmake b/openmp/runtime/cmake/config-ix.cmake
+index 8e76e66066a99..d0eda6d8ca39a 100644
+--- a/openmp/runtime/cmake/config-ix.cmake
++++ b/openmp/runtime/cmake/config-ix.cmake
+@@ -246,7 +246,11 @@ endif()
+ 
+ # Checking features
+ # Check if version symbol assembler directives are supported
+-libomp_check_version_symbols(LIBOMP_HAVE_VERSION_SYMBOLS)
++if (LIBOMP_HAVE_VERSION_SCRIPT_FLAG)
++  libomp_check_version_symbols(LIBOMP_HAVE_VERSION_SYMBOLS)
++else()
++  set(LIBOMP_HAVE_VERSION_SYMBOLS FALSE)
++endif()
+ 
+ # Check if quad precision types are available
+ if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
