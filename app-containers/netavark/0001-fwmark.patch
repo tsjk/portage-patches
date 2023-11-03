@@ -1,0 +1,11 @@
+--- ./src/firewall/varktables/types.rs.orig	2006-07-24 03:21:28.000000000 +0200
++++ ./src/firewall/varktables/types.rs	2023-10-28 10:33:24.643660096 +0200
+@@ -33,7 +33,7 @@
+ 
+ const CONTAINER_DN_CHAIN: &str = "NETAVARK-DN-";
+ 
+-const HEXMARK: &str = "0x2000";
++const HEXMARK: &str = "0x100000";
+ 
+ const MULTICAST_NET_V4: &str = "224.0.0.0/4";
+ const MULTICAST_NET_V6: &str = "ff00::/8";
