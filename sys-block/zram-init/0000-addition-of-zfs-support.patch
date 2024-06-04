@@ -1,0 +1,19 @@
+--- orig/sbin/zram-init.in	2023-05-19 10:16:36.010086064 +0200
++++ patched/sbin/zram-init.in	2024-06-04 08:41:55.812713991 +0200
+@@ -459,6 +459,16 @@
+ 	shift
+ 	mount -t xfs ${opts:+-o "$opts"} ${1+"$@"} -- "$devnode" "$dir" \
+ 		|| xFatal 'mount ${devnode} failed';;
++zfs)
++	zpool create -f -m none -o ashift=12 -o autotrim=off -o cachefile=none "$label" "$devnode" \
++		|| xFatal 'zpool create on $devnode failed'
++	zfs_set="${dir##/}"; zfs_set=$(echo "${zfs_set}" | sed -e 's@/@:@g')
++	zfs create -o acltype=posixacl -o atime=off -o canmount=on -o com.sun:auto-snapshot=false \
++		-o compression=lz4 -o devices=off -o dnodesize=auto -o logbias=throughput \
++		-o mountpoint="$dir" -o normalization=formD -o overlay=on -o relatime=on \
++		-o setuid=off -o sync=disabled -o xattr=sa "${label}/${zfs_set}" \
++		|| xFatal 'zfs create of ${label}/${zfs_set} failed'
++	;;
+ *)
+ 	xFatal 'unsupported filesystem ${fstype}';;
+ esac
