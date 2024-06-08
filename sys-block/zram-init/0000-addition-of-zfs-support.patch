@@ -10,8 +10,8 @@
 +	zfs_set="${dir##/}"; zfs_set=$(echo "${zfs_set}" | sed -e 's@/@:@g')
 +	zfs create -o acltype=posixacl -o atime=off -o canmount=on -o com.sun:auto-snapshot=false \
 +		-o compression=lz4 -o devices=off -o dnodesize=auto -o logbias=throughput \
-+		-o mountpoint="$dir" -o normalization=formD -o overlay=on -o relatime=on \
-+		-o setuid=off -o sync=disabled -o xattr=sa "${label}/${zfs_set}" \
++		-o mountpoint="$dir" -o normalization=none -o overlay=on -o relatime=on \
++		-o setuid=off -o sync=disabled -o utf8only=off -o xattr=sa "${label}/${zfs_set}" \
 +		|| xFatal 'zfs create of ${label}/${zfs_set} failed'
 +	;;
  *)
