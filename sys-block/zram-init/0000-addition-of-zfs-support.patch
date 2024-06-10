@@ -1,5 +1,5 @@
 --- ./sbin/zram-init.in.orig	2022-01-13 22:04:02.000000000 +0100
-+++ ./sbin/zram-init.in	2024-06-09 08:47:00.155784222 +0200
++++ ./sbin/zram-init.in	2024-06-10 08:31:22.980585031 +0200
 @@ -459,6 +459,14 @@
  	shift
  	mount -t xfs ${opts:+-o "$opts"} ${1+"$@"} -- "$devnode" "$dir" \
@@ -7,11 +7,11 @@
 +zfs)
 +	zpool create -f -m none -o ashift=12 -o autotrim=off -o cachefile=none "$label" "$devnode" \
 +		|| xFatal 'zpool create on $devnode failed'
-+	eval "set -- a $mount_opt"
 +	zfs_set="${dir##/}"; zfs_set=$(echo "${zfs_set}" | sed -e 's@/@:@g')
++	eval "set -- a $mount_opt"
++	shift
 +	zfs create -o mountpoint="$dir" ${opts} ${1+"$@"} "${label}/${zfs_set}" \
-+		|| xFatal 'zfs create of ${label}/${zfs_set} failed'
-+	;;
++		|| xFatal 'zfs create of ${label}/${zfs_set} failed';;
  *)
  	xFatal 'unsupported filesystem ${fstype}';;
  esac
@@ -36,7 +36,7 @@
 +labl4=zram4
 +uuid4=
 +args4=
-+opts4=-o acltype=posixacl -o atime=off -o canmount=on -o com.sun:auto-snapshot=false -o compression=lz4 -o devices=off -o dnodesize=auto -o logbias=throughput -o normalization=none -o overlay=on -o relatime=on -o setuid=off -o sync=disabled -o utf8only=off -o xattr=sa
++opts4="-o acltype=posixacl -o atime=off -o canmount=on -o com.sun:auto-snapshot=false -o compression=lz4 -o devices=off -o dnodesize=auto -o logbias=throughput -o normalization=none -o overlay=on -o relatime=on -o setuid=off -o sync=disabled -o utf8only=off -o xattr=sa"
 +mode4=1777
 +owgr4=
 +notr4=
