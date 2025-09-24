@@ -1,0 +1,38 @@
+--- ./drivers/usb/storage/unusual_devs.h.orig	2019-10-19 21:08:51.072420348 +0200
++++ ./drivers/usb/storage/unusual_devs.h	2019-10-19 21:12:53.217068867 +0200
+@@ -2100,7 +2100,7 @@
+ 		US_FL_IGNORE_RESIDUE ),
+ 
+ /* Reported by Michael Büsch <m@bues.ch> */
+-UNUSUAL_DEV(  0x152d, 0x0567, 0x0114, 0x0117,
++UNUSUAL_DEV(  0x152d, 0x0567, 0x0114, 0x0116,
+ 		"JMicron",
+ 		"USB to ATA/ATAPI Bridge",
+ 		USB_SC_DEVICE, USB_PR_DEVICE, NULL,
+@@ -2259,6 +2259,12 @@
+ 		USB_SC_DEVICE, USB_PR_DEVICE, NULL,
+ 		US_FL_BULK_IGNORE_TAG | US_FL_MAX_SECTORS_64 ),
+ 
++UNUSUAL_DEV(  0x2109, 0x0711, 0x0000, 0x9999,
++		"VIA",
++		"VL711",
++		USB_SC_DEVICE, USB_PR_DEVICE, NULL,
++		US_FL_BROKEN_FUA),
++
+ /* Supplied with some Castlewood ORB removable drives */
+ UNUSUAL_DEV(  0x2027, 0xa001, 0x0000, 0x9999,
+ 		"Double-H Technology",
+@@ -2317,6 +2323,13 @@
+ 		USB_SC_DEVICE,USB_PR_DEVICE,NULL,
+ 		US_FL_MAX_SECTORS_64 ),
+ 
++/* Reported-by: Takeo Nakayama <javhera@gmx.com> */
++UNUSUAL_DEV(  0x357d, 0x7788, 0x0000, 0x9999,
++		"JMicron",
++		"JMS566",
++		USB_SC_DEVICE, USB_PR_DEVICE, NULL,
++		US_FL_BROKEN_FUA),
++
+ /* Reported by Andrey Rahmatullin <wrar@altlinux.org> */
+ UNUSUAL_DEV(  0x4102, 0x1020, 0x0100,  0x0100,
+ 		"iRiver",
