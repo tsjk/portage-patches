@@ -1,0 +1,44 @@
+--- zram-init-13.2/sbin/zram-init.in.orig	2026-02-28 12:13:09.000000000 +0100
++++ zram-init-13.2/sbin/zram-init.in	2026-03-03 07:57:16.316158295 +0100
+@@ -459,6 +459,14 @@
+ 	shift
+ 	mount -t xfs ${opts:+-o "$opts"} ${1+"$@"} -- "$devnode" "$dir" \
+ 		|| xFatal 'mount ${devnode} failed';;
++zfs)
++	zpool create -f -m none -o ashift=12 -o autotrim=off -o cachefile=none "$label" "$devnode" \
++		|| xFatal 'zpool create on $devnode failed'
++	zfs_set="${dir##/}"; zfs_set=$(echo "${zfs_set}" | sed -e 's@/@:@g')
++	eval "set -- a $mount_opt"
++	shift
++	zfs create -o mountpoint="$dir" ${opts} ${1+"$@"} "${label}/${zfs_set}" \
++		|| xFatal 'zfs create of ${label}/${zfs_set} failed';;
+ *)
+ 	xFatal 'unsupported filesystem ${fstype}';;
+ esac
+--- zram-init-13.2/openrc/conf.d/zram-init.orig	2026-02-28 12:13:09.000000000 +0100
++++ zram-init-13.2/openrc/conf.d/zram-init	2026-03-03 08:03:38.505502373 +0100
+@@ -141,6 +141,24 @@
+ uuid3=
+ args3=
+ 
++# Example of ZFS for /tmp (will be named zram4/tmp)
++type4=/tmp
++size4=2048
++mlim4=
++back4=
++icmp4=
++idle4=
++wlim4=
++flag4=zfs
++algo4=lzo-rle	# use compression of ZFS primarily
++labl4=zram4
++uuid4=
++args4=
++opts4="-o acltype=posixacl -o atime=off -o canmount=on -o com.sun:auto-snapshot=false -o compression=lz4 -o devices=off -o dnodesize=auto -o logbias=throughput -o normalization=none -o overlay=on -o relatime=on -o setuid=off -o sync=disabled -o utf8only=off -o xattr=sa"
++mode4=1777
++owgr4=
++notr4=
++
+ # The init-file does not enforce any order or dependency on bootmisc or
+ # tmpfiles.setup, but very likely at least some order should be configured
+ # in the config file.
