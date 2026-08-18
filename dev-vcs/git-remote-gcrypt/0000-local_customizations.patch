@@ -1,14 +1,5 @@
 --- ./git-remote-gcrypt.orig	2024-04-27 13:28:24.355670448 +0200
 +++ ./git-remote-gcrypt	2024-05-16 11:04:50.284562148 +0200
-@@ -345,7 +345,7 @@
- 
- DECRYPT()
- {
--	rungpg -q --batch --no-default-keyring --secret-keyring /dev/null \
-+	rungpg -q --batch --no-default-keyring \
- 		--keyring /dev/null --passphrase-fd 3 -d  3<<EOF
- $1
- EOF
 @@ -780,10 +780,6 @@
  		if [ "$Conf_force_required" = true ]
  		then
