@@ -1,0 +1,25 @@
+>From 435e39bad31b92875f21231ccc55ac81c4b6f8c1 Mon Sep 17 00:00:00 2001
+From: Adam Sampson <ats@offog.org>
+Date: Sat, 5 Jul 2025 16:48:43 +0100
+Subject: [PATCH 1/4] doc/en/gcal.texi: remove obsolete directive
+
+Texinfo 7.2 no longer accepts @setshortcontentsaftertitlepage.
+---
+ doc/en/gcal.texi | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/doc/en/gcal.texi b/doc/en/gcal.texi
+index fd0350b..b0467a9 100644
+--- a/doc/en/gcal.texi
++++ b/doc/en/gcal.texi
+@@ -50,7 +50,6 @@
+ @settitle Gcal @value{GCAL-VERSION}
+ @c
+ @setchapternewpage odd
+-@setshortcontentsaftertitlepage
+ @paragraphindent 2
+ @footnotestyle separate
+ @c @smallbook
+-- 
+2.50.0
+

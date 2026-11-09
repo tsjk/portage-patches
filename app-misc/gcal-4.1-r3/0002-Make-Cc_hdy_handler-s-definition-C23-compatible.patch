@@ -1,0 +1,27 @@
+>From 9e3be06c98291eaff59f5feafe8622367a46c3f7 Mon Sep 17 00:00:00 2001
+From: Adam Sampson <ats@offog.org>
+Date: Sat, 5 Jul 2025 16:50:37 +0100
+Subject: [PATCH 2/4] Make Cc_hdy_handler's definition C23-compatible
+
+() means (void) in C23, so the existing definition breaks compilation
+with GCC 15 unless an older -std is specified explicitly.
+---
+ src/hd-defs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/hd-defs.h b/src/hd-defs.h
+index 394e20e..b123025 100644
+--- a/src/hd-defs.h
++++ b/src/hd-defs.h
+@@ -683,7 +683,7 @@ typedef struct country_code_type
+   char *cc_info;
+ 
+   /* The country code specific holiday handling function. */
+-  void (*Cc_hdy_handler) ();
++  void (*Cc_hdy_handler) (Bool *, const Bool, int, const int, int *, const int, const int);
+ }
+ Cc_struct;
+ 
+-- 
+2.50.0
+
